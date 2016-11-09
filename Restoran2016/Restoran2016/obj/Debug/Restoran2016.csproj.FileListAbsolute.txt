@@ -1,0 +1,110 @@
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Restoran2016.dll.config
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Restoran2016.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Restoran2016.pdb
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Antlr3.Runtime.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\EntityFramework.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\EntityFramework.SqlServer.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.AspNet.Identity.Core.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.AspNet.Identity.Owin.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Host.SystemWeb.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Cookies.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Facebook.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Google.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.OAuth.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Twitter.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Web.Infrastructure.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Newtonsoft.Json.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Owin.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.Helpers.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.Mvc.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.Optimization.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.Razor.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.WebPages.Deployment.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.WebPages.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.WebPages.Razor.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\WebGrease.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.Helpers.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.Mvc.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.Optimization.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.Razor.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.WebPages.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.WebPages.Deployment.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\System.Web.WebPages.Razor.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Newtonsoft.Json.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Antlr3.Runtime.pdb
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\EntityFramework.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\EntityFramework.SqlServer.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.AspNet.Identity.Core.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.AspNet.Identity.Owin.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Host.SystemWeb.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Facebook.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Cookies.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.OAuth.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Google.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Twitter.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\obj\Debug\Restoran2016.dll
+c:\users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\obj\Debug\Restoran2016.pdb
+C:\Users\pc\documents\visual studio 2013\Projects\Restoran2016\Restoran2016\obj\Debug\Restoran2016.csprojResolveAssemblyReference.cache
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Restoran2016.dll.config
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Restoran2016.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Restoran2016.pdb
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Antlr3.Runtime.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\EntityFramework.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\EntityFramework.SqlServer.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Newtonsoft.Json.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Owin.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.Helpers.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.Mvc.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.Optimization.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.Razor.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.WebPages.Deployment.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.WebPages.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.WebPages.Razor.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\WebGrease.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.Helpers.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.Mvc.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.Optimization.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.Razor.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.WebPages.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.WebPages.Deployment.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\System.Web.WebPages.Razor.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Newtonsoft.Json.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Antlr3.Runtime.pdb
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\EntityFramework.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\EntityFramework.SqlServer.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\obj\Debug\Restoran2016.csprojResolveAssemblyReference.cache
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\obj\Debug\Restoran2016.dll
+C:\Users\pc\Desktop\Aco faks\ISA\ISA PROJEKAT 2016\Restoran2016\Restoran2016\obj\Debug\Restoran2016.pdb

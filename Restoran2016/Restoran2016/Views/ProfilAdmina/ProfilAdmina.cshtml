@@ -1,0 +1,98 @@
+﻿@model Restoran2016.ModelView.ProfilAdmina
+
+@{
+    ViewBag.Title = "Profil Admina";
+}
+
+<h2>Profil</h2>
+<fieldset>
+    <legend> Restorani </legend>
+
+    <table>
+
+        <tr>
+            <th>
+                ID Restorana
+            </th>
+            <th>
+                Naziv Restorana
+            </th>
+            <th>
+                Opis
+            </th>
+            <th>
+                Telefon
+            </th>
+            <th>
+                Adresa
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.restorani)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID_RESTORANA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NAZIV_RESTORANA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OPIS_RESTPRANA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TELEFON_RESTORANA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ADRESA_RESTORANA)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditRestoran", new { id = item.ID_RESTORANA }) |
+                    @Html.ActionLink("Delete", "DeleteRestoran", new { id = item.ID_RESTORANA })
+                </td>
+            </tr>
+        }
+
+    </table>
+    <p>   @Html.ActionLink("Dodaj", "CreateRestoran", new { /* id=Model.PrimaryKey */ }) </p>
+</fieldset>
+<fieldset>
+    <legend> Menadzeri </legend>
+    <table>
+
+        <tr>
+            <th>
+                Menadzer
+            </th>
+            <th>
+                Restoran
+            </th>
+
+            <th></th>
+        </tr>
+
+
+        @foreach (var item in Model.menadzeri)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDMENADZERA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RESTORAN.NAZIV_RESTORANA)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Delete", "DeleteMenadzer", new { id = item.IDMENADZERA })
+                </td>
+            </tr>
+        }
+
+    </table>
+    <p>   @Html.ActionLink("Dodaj", "CreateMenadzer", new { /* id=Model.PrimaryKey */ }) </p>
+</fieldset>
+<p>
+
+    @Html.ActionLink("Logout", "Login", "Gost")
+</p>

@@ -1,0 +1,182 @@
+﻿@model Restoran2016.ModelView.Profil
+
+@{
+    ViewBag.Title = "Profil";
+}
+
+<h2>Profil</h2>
+
+<fieldset>
+    <legend>Osnovni podaci</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Email):  @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.ime): @Html.DisplayFor(model => model.ime)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.prezime): @Html.DisplayFor(model => model.prezime)
+    </div>
+
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Email })
+</fieldset>
+
+<fieldset>
+    <legend>Prijatelji</legend>
+    <table>
+        <tr>
+            <th>
+                Ime
+            </th>
+            <th>
+                Prezime
+            </th>
+            <th>
+                Email
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.prijatelji)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IME_GOSTA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PREZIME_GOSTA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EMAIL_GOSTA)
+                </td>
+
+                <td>
+
+                    @Html.ActionLink("Obrisi", "ObrisiP", new { id = item.EMAIL_GOSTA })
+                </td>
+            </tr>
+        }
+
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>Zahtevi</legend>
+
+    <table>
+        <tr>
+            <th>
+                Ime
+            </th>
+            <th>
+                Prezime
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.zahtevi)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IME_GOSTA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PREZIME_GOSTA)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Prihvati", "Dodaj2", new { id = item.EMAIL_GOSTA })
+                </td>
+
+                <td>
+                    @Html.ActionLink("Odbij", "OdbijP", new { id = item.EMAIL_GOSTA })
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>Predlozi</legend>
+
+    <table>
+        <tr>
+            <th>
+                Ime
+            </th>
+            <th>
+                Prezime
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.neprijatelji)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IME_GOSTA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PREZIME_GOSTA)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Dodaj", "Dodaj", new { id = item.EMAIL_GOSTA})
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>Restorani</legend>
+    <table>
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Vrsta
+            </th>
+            <th>
+                Ocena
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.restorani)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NAZIV_RESTORANA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OPIS_RESTPRANA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PROSECNA_OCENA)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</fieldset>
+
+<p>
+
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+
+    @Html.ActionLink("Logout", "Login", "Gost")
+
+    @Html.ActionLink("Pronadji Prijatelje", "PronadjiPrijatelje")
+</p>

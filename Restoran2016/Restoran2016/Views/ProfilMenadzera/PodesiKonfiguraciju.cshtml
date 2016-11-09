@@ -1,0 +1,69 @@
+﻿@model Restoran2016.Models.RESTORAN
+
+   @{ ViewBag.Title = "Podesi Konfiguraciju";
+}
+
+@{
+
+    int kolona = @ViewBag.BrojStolova / @ViewBag.BrojRedova;
+}
+
+<h2>Podesi Konfiguraciju</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    @Html.ValidationSummary(true)
+    
+
+    <p>
+Broj kolona: @Html.TextBox("brRed")
+        <input type="submit" value="Filter" />
+
+        </p>
+
+} 
+
+@for (var m = 0; m < kolona; m++)
+{
+    <tr>
+        @for (var n = 1; n <= @ViewBag.BrojRedova; n++)
+        {
+            if ((m * @ViewBag.BrojRedova + n) >= 10)
+            {
+                <td>
+                    <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default">@(m * @ViewBag.BrojRedova + n)</button>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default">0@(m * @ViewBag.BrojRedova + n)</button>
+                </td>
+            }
+
+        }
+        <p> </p>
+    </tr>
+
+
+}
+
+@if (kolona * @ViewBag.BrojRedova < @ViewBag.BrojStolova)
+{
+
+    for (var n = kolona * @ViewBag.BrojRedova + 1; n <= @ViewBag.BrojStolova; n++)
+    {
+        <td>
+            <button id="@n" type="submit" class="btn btn-default">@n</button>
+        </td>
+
+    }
+
+}
+
+
+
+
+

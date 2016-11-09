@@ -1,0 +1,122 @@
+﻿@model Restoran2016.ModelView.ProfilMenadzera
+
+@{
+    
+    int kolona = @ViewBag.BrojStolova / @ViewBag.BrojRedova;   
+}
+
+@{
+    ViewBag.Title = "ProfilMenadzera";
+  
+}
+
+
+<h2>ProfilMenadzera</h2>
+
+<fieldset>
+    <legend>Restoran</legend>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.NazivRestorana): @Html.DisplayFor(model => model.NazivRestorana)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.OpisRestorana): @Html.DisplayFor(model => model.OpisRestorana)
+    </div>
+</fieldset>
+
+<div> @Html.ActionLink("Izmeni", "EditRestoran", new { id = Model.IDRestorana }) </div>
+     @Html.ActionLink("Testiranje konfiguracije", "PodesiKonfiguraciju", new { id = Model.IDRestorana })
+@Html.ActionLink("Promena konfiguracije", "PromeniKonfiguraciju", new { id = Model.IDRestorana })
+    <p> </p>
+
+
+    @for (var m = 0; m < kolona; m++)
+    {
+        <tr>
+            @for (var n = 1; n <= @ViewBag.BrojRedova; n++)
+            {
+                if ((m * @ViewBag.BrojRedova + n) >= 10)
+                {
+                    <td>
+                        <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default">@(m * @ViewBag.BrojRedova + n)</button>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default">0@(m * @ViewBag.BrojRedova + n)</button>
+                    </td>
+                }
+
+            }
+            <p> </p>
+        </tr>
+
+
+    }
+
+@if (kolona * @ViewBag.BrojRedova < @ViewBag.BrojStolova)
+{
+   
+   for (var n = kolona * @ViewBag.BrojRedova+1; n <= @ViewBag.BrojStolova; n++)
+   {
+                           <td>
+                        <button id="@n" type="submit" class="btn btn-default">@n</button>
+                    </td>
+       
+   }
+
+}
+                                                     
+                                                     
+                                                     
+
+
+
+    <fieldset>
+        <legend> Jelovnik </legend>
+        <table>
+            <tr>
+                <th>
+                    ID Jela
+                </th>
+                <th>
+                    Naziv Jela
+                </th>
+                <th>
+                    Opis Jela
+                </th>
+                <th>
+                    Cena
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.jelovnici)
+            {
+                <tr>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.ID_JELA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NAZIV_JELA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OPIS)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CENA_JELA)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditJelovnik", new { idr = item.ID_RESTORANA, id = item.ID_JELA }) |
+                        @Html.ActionLink("Delete", "DeleteJelovnik", new { idr = item.ID_RESTORANA, id = item.ID_JELA })
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <p>   @Html.ActionLink("Dodaj", "CreateJelovnik", new { id = Model.IDRestorana }) </p>
+    </fieldset>
+
+    @Html.ActionLink("Logout", "Login", "Gost")

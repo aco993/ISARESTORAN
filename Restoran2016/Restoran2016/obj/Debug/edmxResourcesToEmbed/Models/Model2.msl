@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="acoModel1StoreContainer" CdmEntityContainer="acoEntities1">
+    <EntitySetMapping Name="ADMINs">
+      <EntityTypeMapping TypeName="acoModel1.ADMIN">
+        <MappingFragment StoreEntitySet="ADMIN">
+          <ScalarProperty Name="ID_ADMIN" ColumnName="ID_ADMIN" />
+          <ScalarProperty Name="PASS_ADMINA" ColumnName="PASS_ADMINA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GOSTs">
+      <EntityTypeMapping TypeName="acoModel1.GOST">
+        <MappingFragment StoreEntitySet="GOST">
+          <ScalarProperty Name="EMAIL_GOSTA" ColumnName="EMAIL_GOSTA" />
+          <ScalarProperty Name="PASS_GOSTA" ColumnName="PASS_GOSTA" />
+          <ScalarProperty Name="IME_GOSTA" ColumnName="IME_GOSTA" />
+          <ScalarProperty Name="PREZIME_GOSTA" ColumnName="PREZIME_GOSTA" />
+          <ScalarProperty Name="POL_GOSTA" ColumnName="POL_GOSTA" />
+          <ScalarProperty Name="MAIL_POTVRA" ColumnName="MAIL_POTVRA" />
+          <ScalarProperty Name="CPASS_GOSTA" ColumnName="CPASS_GOSTA" />
+          <ScalarProperty Name="SLIKA" ColumnName="SLIKA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JELOVNIKs">
+      <EntityTypeMapping TypeName="acoModel1.JELOVNIK">
+        <MappingFragment StoreEntitySet="JELOVNIK">
+          <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
+          <ScalarProperty Name="ID_JELA" ColumnName="ID_JELA" />
+          <ScalarProperty Name="NAZIV_JELA" ColumnName="NAZIV_JELA" />
+          <ScalarProperty Name="OPIS" ColumnName="OPIS" />
+          <ScalarProperty Name="CENA_JELA" ColumnName="CENA_JELA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MENADZERs">
+      <EntityTypeMapping TypeName="acoModel1.MENADZER">
+        <MappingFragment StoreEntitySet="MENADZER">
+          <ScalarProperty Name="IDMENADZERA" ColumnName="IDMENADZERA" />
+          <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
+          <ScalarProperty Name="ASD" ColumnName="ASD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRIJATELJIs">
+      <EntityTypeMapping TypeName="acoModel1.PRIJATELJI">
+        <MappingFragment StoreEntitySet="PRIJATELJI">
+          <ScalarProperty Name="EMAIL_GOSTA1" ColumnName="EMAIL_GOSTA1" />
+          <ScalarProperty Name="EMAIL_GOSTA" ColumnName="EMAIL_GOSTA" />
+          <ScalarProperty Name="PRIJATELJI_OD" ColumnName="PRIJATELJI_OD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RESTORANs">
+      <EntityTypeMapping TypeName="acoModel1.RESTORAN">
+        <MappingFragment StoreEntitySet="RESTORAN">
+          <ScalarProperty Name="BROJ_KOLONA" ColumnName="BROJ_KOLONA" />
+          <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
+          <ScalarProperty Name="NAZIV_RESTORANA" ColumnName="NAZIV_RESTORANA" />
+          <ScalarProperty Name="ADRESA_RESTORANA" ColumnName="ADRESA_RESTORANA" />
+          <ScalarProperty Name="MAIL_RESTORANA" ColumnName="MAIL_RESTORANA" />
+          <ScalarProperty Name="TELEFON_RESTORANA" ColumnName="TELEFON_RESTORANA" />
+          <ScalarProperty Name="PROSECNA_OCENA" ColumnName="PROSECNA_OCENA" />
+          <ScalarProperty Name="OPIS_RESTPRANA" ColumnName="OPIS_RESTPRANA" />
+          <ScalarProperty Name="LATITUDA" ColumnName="LATITUDA" />
+          <ScalarProperty Name="LONGITUDA" ColumnName="LONGITUDA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="REZERVACIJAs">
+      <EntityTypeMapping TypeName="acoModel1.REZERVACIJA">
+        <MappingFragment StoreEntitySet="REZERVACIJA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EMAIL_GOSTA" ColumnName="EMAIL_GOSTA" />
+          <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
+          <ScalarProperty Name="ID_STOLA" ColumnName="ID_STOLA" />
+          <ScalarProperty Name="OCENA" ColumnName="OCENA" />
+          <ScalarProperty Name="VREME_DOLASKA" ColumnName="VREME_DOLASKA" />
+          <ScalarProperty Name="VREME_ODLASKA" ColumnName="VREME_ODLASKA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STOes">
+      <EntityTypeMapping TypeName="acoModel1.STO">
+        <MappingFragment StoreEntitySet="STO">
+          <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
+          <ScalarProperty Name="ID_STOLA" ColumnName="ID_STOLA" />
+          <ScalarProperty Name="BR_STOLICA" ColumnName="BR_STOLICA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
