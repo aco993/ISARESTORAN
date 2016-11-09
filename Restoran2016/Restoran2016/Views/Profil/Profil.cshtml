@@ -165,6 +165,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PROSECNA_OCENA)
                 </td>
+                <td>
+                    @Html.ActionLink("Rezervisi", "RezervisiRestoran", new { id=item.ID_RESTORANA }) 
+                </td>
 
             </tr>
         }
@@ -179,4 +182,6 @@
     @Html.ActionLink("Logout", "Login", "Gost")
 
     @Html.ActionLink("Pronadji Prijatelje", "PronadjiPrijatelje")
+
+    @Html.ActionLink("Pronadji Restorane", "PronadjiRestorane")
 </p>

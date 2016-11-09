@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Restoran2016.Models.RESTORAN>
+
+@{
+    ViewBag.Title = "PronadjiRestorane";
+}
+
+<h2>PronadjiRestorane</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Naziv: @Html.TextBox("naziv")
+        Vrsta: @Html.TextBox("vrsta")
+        <input type="submit" value="Filter" />
+    </p>
+}
+
+
+<div>
+    <h4>RESTORAN</h4>
+	<hr />
+   
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("naziv")
+            </th>
+
+            <th>
+                @Html.DisplayName("opis")
+            </th>
+ 
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.NAZIV_RESTORANA)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => item.OPIS_RESTPRANA)
+                </td>
+                <td>
+                    @Html.ActionLink("Rezervisi", "RezervisiRestoran", new { @id = item.ID_RESTORANA })
+
+                </td>
+
+
+            </tr>
+        }
+
+    </table>
+
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

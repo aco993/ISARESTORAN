@@ -93,12 +93,30 @@ namespace Restoran2016.Controllers
 
             if (!String.IsNullOrEmpty(prezime))
             {
-                gosti = gosti.Where(x => x.PREZIME_GOSTA.Contains(ime));
+                gosti = gosti.Where(x => x.PREZIME_GOSTA.Contains(prezime));
             }
 
             return View(gosti);
         }
- 
+
+        public ActionResult PronadjiRestorane(string naziv, string vrsta)
+        {
+
+            var restorani = from r in db.RESTORANs
+                        select r;
+
+            if (!String.IsNullOrEmpty(naziv))
+            {
+                restorani= restorani.Where(x => x.NAZIV_RESTORANA.Contains(naziv));
+            }
+
+            if (!String.IsNullOrEmpty(vrsta))
+            {
+                restorani = restorani.Where(x => x.OPIS_RESTPRANA.Contains(vrsta));
+            }
+
+            return View(restorani);
+        }
 
         [HttpGet]
         public ActionResult Dodaj(string id)
