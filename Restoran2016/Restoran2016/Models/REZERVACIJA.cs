@@ -11,6 +11,7 @@ namespace Restoran2016.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class REZERVACIJA
     {
@@ -19,8 +20,12 @@ namespace Restoran2016.Models
         public string ID_RESTORANA { get; set; }
         public string ID_STOLA { get; set; }
         public int OCENA { get; set; }
+        [DataType(DataType.Time)]
         public System.DateTime VREME_DOLASKA { get; set; }
+        [DataType(DataType.Time)]
         public System.DateTime VREME_ODLASKA { get; set; }
+        [DataType(DataType.Date)]
+        public System.DateTime DATUM { get; set; }
     
         public virtual GOST GOST { get; set; }
         public virtual STO STO { get; set; }

@@ -79,6 +79,7 @@
           <Property Name="OCENA" Type="int" Nullable="false" />
           <Property Name="VREME_DOLASKA" Type="datetime" Nullable="false" />
           <Property Name="VREME_ODLASKA" Type="datetime" Nullable="false" />
+          <Property Name="DATUM" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="STO">
           <Key>
@@ -303,6 +304,7 @@
           <Property Name="VREME_ODLASKA" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="GOST" Relationship="Self.FK_REZERVAC_RELATIONS_GOST" FromRole="REZERVACIJA" ToRole="GOST" />
           <NavigationProperty Name="STO" Relationship="Self.FK_REZERVAC_RELATIONS_STO" FromRole="REZERVACIJA" ToRole="STO" />
+          <Property Name="DATUM" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="STO">
           <Key>
@@ -515,6 +517,7 @@
           <EntitySetMapping Name="REZERVACIJAs">
             <EntityTypeMapping TypeName="acoModel1.REZERVACIJA">
               <MappingFragment StoreEntitySet="REZERVACIJA">
+                <ScalarProperty Name="DATUM" ColumnName="DATUM" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="EMAIL_GOSTA" ColumnName="EMAIL_GOSTA" />
                 <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />

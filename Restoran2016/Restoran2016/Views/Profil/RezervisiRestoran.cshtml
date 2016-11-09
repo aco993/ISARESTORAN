@@ -1,0 +1,62 @@
+﻿@model Restoran2016.Models.REZERVACIJA
+
+@{
+    ViewBag.Title = "RezervisiRestoran";
+}
+
+<h2>RezervisiRestoran</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>REZERVACIJA</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(x => x.ID)
+        @Html.HiddenFor(x => x.ID_RESTORANA)
+        @Html.HiddenFor(x => x.OCENA)
+        @Html.HiddenFor(x => x.ID_STOLA)
+        @Html.HiddenFor(x => x.STO)
+        @Html.HiddenFor(x => x.GOST) 
+        @Html.HiddenFor(x => x.EMAIL_GOSTA)
+
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DATUM, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DATUM)
+                @Html.ValidationMessageFor(model => model.DATUM)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VREME_DOLASKA, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VREME_DOLASKA)
+                @Html.ValidationMessageFor(model => model.VREME_DOLASKA)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VREME_ODLASKA, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VREME_ODLASKA)
+                @Html.ValidationMessageFor(model => model.VREME_ODLASKA)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

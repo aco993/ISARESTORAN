@@ -86,6 +86,7 @@
     <Property Name="VREME_ODLASKA" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="GOST" Relationship="Self.FK_REZERVAC_RELATIONS_GOST" FromRole="REZERVACIJA" ToRole="GOST" />
     <NavigationProperty Name="STO" Relationship="Self.FK_REZERVAC_RELATIONS_STO" FromRole="REZERVACIJA" ToRole="STO" />
+    <Property Name="DATUM" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
   <EntityType Name="STO">
     <Key>

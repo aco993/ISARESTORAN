@@ -74,6 +74,7 @@
     <Property Name="OCENA" Type="int" Nullable="false" />
     <Property Name="VREME_DOLASKA" Type="datetime" Nullable="false" />
     <Property Name="VREME_ODLASKA" Type="datetime" Nullable="false" />
+    <Property Name="DATUM" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="STO">
     <Key>

@@ -71,6 +71,7 @@
     <EntitySetMapping Name="REZERVACIJAs">
       <EntityTypeMapping TypeName="acoModel1.REZERVACIJA">
         <MappingFragment StoreEntitySet="REZERVACIJA">
+          <ScalarProperty Name="DATUM" ColumnName="DATUM" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="EMAIL_GOSTA" ColumnName="EMAIL_GOSTA" />
           <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />

@@ -272,5 +272,20 @@ namespace Restoran2016.Controllers
 
             return View(gost);
         }
+
+        public ActionResult RezervisiRestoran(string id) {
+            
+            string email=Session["idGosta"].ToString();
+            var genID=db.REZERVACIJAs.Count()+1;
+
+            RESTORAN rest = db.RESTORANs.Find(id);
+            REZERVACIJA rez = new REZERVACIJA();
+            rez.EMAIL_GOSTA = email;
+            rez.ID = genID;
+            rez.ID_RESTORANA = rest.ID_RESTORANA;
+            return View(rez);
+
+        
+        }
 	}
 }
