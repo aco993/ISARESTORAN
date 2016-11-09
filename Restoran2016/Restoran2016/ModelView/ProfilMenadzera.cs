@@ -8,6 +8,8 @@ namespace Restoran2016.ModelView
 {
     public class ProfilMenadzera
     {
+        public String ID_Menadzera { get; set; }
+        public String ASD { get; set; } 
         public String IDRestorana { get; set; }
         public String NazivRestorana { get; set; }
         public String OpisRestorana { get; set; }

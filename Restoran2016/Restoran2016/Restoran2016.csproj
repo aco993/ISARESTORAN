@@ -323,6 +323,7 @@
     <Content Include="Views\ProfilMenadzera\PodesiKonfiguraciju.cshtml" />
     <Content Include="Views\ProfilMenadzera\PromeniKonfiguraciju.cshtml" />
     <Content Include="Views\Profil\PronadjiRestorane.cshtml" />
+    <Content Include="Views\ProfilMenadzera\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,6 +37,8 @@ namespace Restoran2016.Controllers
                 prof.OpisRestorana = g.RESTORAN.OPIS_RESTPRANA;
                 prof.IDRestorana = g.ID_RESTORANA;
                 prof.brojRedova = (int)r.BROJ_KOLONA;
+                prof.ASD = g.ASD;
+                prof.ID_Menadzera = g.IDMENADZERA;
                 int broj2 = prof.brojRedova;
                 ViewBag.BrojRedova = broj2;
                 int broj = db.STOes.Where(x => x.ID_RESTORANA == g.ID_RESTORANA).Count();
@@ -52,6 +54,35 @@ namespace Restoran2016.Controllers
             }
 
         }
+        [HttpGet]
+        public ActionResult Edit(string id)
+        {
+
+            MENADZER men = db.MENADZERs.Find(id);
+            if (men == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(men);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(MENADZER men)
+        {
+    
+            if (ModelState.IsValid)
+            {
+  
+                db.Entry(men).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ProfilMenadzera");
+            }
+
+            return View(men);
+        }
+
+
 
         [HttpGet]
         public ActionResult EditRestoran()
