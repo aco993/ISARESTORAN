@@ -29,6 +29,8 @@ namespace Restoran2016.Controllers
                 prof.Email = id;
                 prof.ime = g.IME_GOSTA;
                 prof.prezime = g.PREZIME_GOSTA;
+                prof.pass = g.PASS_GOSTA;
+                prof.cpass = g.CPASS_GOSTA;
                 
 
                 var pr = db.PRIJATELJIs.Where(z => z.EMAIL_GOSTA1 == id).Select(z => z.EMAIL_GOSTA).ToList(); //lista poslatih zahteva
@@ -246,6 +248,9 @@ namespace Restoran2016.Controllers
             prof.ime = gost.IME_GOSTA;
             prof.prezime = gost.PREZIME_GOSTA;
             prof.Email = gost.EMAIL_GOSTA;
+            prof.pass = gost.PASS_GOSTA;
+            prof.cpass = gost.CPASS_GOSTA;
+            
             return View(prof);
         }
 
@@ -258,6 +263,8 @@ namespace Restoran2016.Controllers
                 gost.IME_GOSTA = prof.ime;
                 gost.PREZIME_GOSTA = prof.prezime;
                 gost.EMAIL_GOSTA = prof.Email;
+                gost.PASS_GOSTA = prof.pass;
+                gost.CPASS_GOSTA = prof.cpass;
                 db.Entry(gost).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Profil");

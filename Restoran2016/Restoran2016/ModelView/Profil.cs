@@ -13,6 +13,9 @@ namespace Restoran2016.ModelView
         public string ime { get; set; }
         public string prezime { get; set; }
 
+        public String pass { get; set; }
+        public String cpass { get; set; }
+
         public List<GOST> prijatelji { get; set; }
         public List<GOST> neprijatelji { get; set; }
         public List<GOST> zahtevi { get; set; }
