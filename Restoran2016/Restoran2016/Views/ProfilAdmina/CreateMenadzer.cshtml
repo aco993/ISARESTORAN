@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RESTORAN.NAZIV_RESTORANA, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RESTORAN.NAZIV_RESTORANA)
+                @Html.DropDownListFor(model => model.RESTORAN.NAZIV_RESTORANA, new SelectList(ViewBag.restorani as System.Collections.IEnumerable), "Izaberi Restoran", new { style = "width: 160px;" })
                 @Html.ValidationMessageFor(model => model.RESTORAN.NAZIV_RESTORANA)
             </div>
         </div>

@@ -142,7 +142,8 @@ namespace Restoran2016.Controllers
         [HttpGet]
         public ActionResult CreateMenadzer()
         {
-
+           var lista = db.RESTORANs.Select(x => x.NAZIV_RESTORANA );            
+            ViewBag.restorani = lista;
             return View();
         }
 
