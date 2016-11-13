@@ -163,3 +163,4 @@ C:\Users\pc\Desktop\Aco faks\ISA\ISA RESTORAN\Restoran2016\Restoran2016\bin\Micr
 C:\Users\pc\Desktop\Aco faks\ISA\ISA RESTORAN\Restoran2016\Restoran2016\obj\Debug\Restoran2016.csprojResolveAssemblyReference.cache
 C:\Users\pc\Desktop\Aco faks\ISA\ISA RESTORAN\Restoran2016\Restoran2016\obj\Debug\Restoran2016.dll
 C:\Users\pc\Desktop\Aco faks\ISA\ISA RESTORAN\Restoran2016\Restoran2016\obj\Debug\Restoran2016.pdb
+C:\Users\pc\Desktop\Aco faks\ISA\ISA RESTORAN\Restoran2016\Restoran2016\bin\MvcCheckBoxList.dll

@@ -12,6 +12,8 @@ namespace Restoran2016.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class acoEntities1 : DbContext
     {
@@ -33,5 +35,56 @@ namespace Restoran2016.Models
         public virtual DbSet<RESTORAN> RESTORANs { get; set; }
         public virtual DbSet<REZERVACIJA> REZERVACIJAs { get; set; }
         public virtual DbSet<STO> STOes { get; set; }
+    
+        public virtual int napuni_rezervacije(Nullable<int> broj, string idGosta, string idRestorana,string sto, Nullable<System.DateTime> datum, Nullable<System.DateTime> pocetak, Nullable<System.DateTime> kraj)
+        {
+            var brojParameter = broj.HasValue ?
+                new ObjectParameter("broj", broj) :
+                new ObjectParameter("broj", typeof(int));
+    
+            var idGostaParameter = idGosta != null ?
+                new ObjectParameter("idGosta", idGosta) :
+                new ObjectParameter("idGosta", typeof(string));
+    
+            var idRestoranaParameter = idRestorana != null ?
+                new ObjectParameter("idRestorana", idRestorana) :
+                new ObjectParameter("idRestorana", typeof(string));
+    
+            var datumParameter = datum.HasValue ?
+                new ObjectParameter("datum", datum) :
+                new ObjectParameter("datum", typeof(System.DateTime));
+    
+            var pocetakParameter = pocetak.HasValue ?
+                new ObjectParameter("pocetak", pocetak) :
+                new ObjectParameter("pocetak", typeof(System.DateTime));
+    
+            var krajParameter = kraj.HasValue ?
+                new ObjectParameter("kraj", kraj) :
+                new ObjectParameter("kraj", typeof(System.DateTime));
+    
+            var stoParameter = sto != null ?
+                new ObjectParameter("sto", sto) :
+                new ObjectParameter("sto", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("napuni_rezervacije", brojParameter, idGostaParameter, idRestoranaParameter, datumParameter, pocetakParameter, krajParameter, stoParameter);
+        }
+    
+        [DbFunction("acoEntities1", "Slobodni_Stolovi")]
+        public virtual IQueryable<string> Slobodni_Stolovi(Nullable<System.DateTime> dATUM, Nullable<System.DateTime> pOCETNO_VREME, Nullable<System.DateTime> kRAJNJE_VREME)
+        {
+            var dATUMParameter = dATUM.HasValue ?
+                new ObjectParameter("DATUM", dATUM) :
+                new ObjectParameter("DATUM", typeof(System.DateTime));
+    
+            var pOCETNO_VREMEParameter = pOCETNO_VREME.HasValue ?
+                new ObjectParameter("POCETNO_VREME", pOCETNO_VREME) :
+                new ObjectParameter("POCETNO_VREME", typeof(System.DateTime));
+    
+            var kRAJNJE_VREMEParameter = kRAJNJE_VREME.HasValue ?
+                new ObjectParameter("KRAJNJE_VREME", kRAJNJE_VREME) :
+                new ObjectParameter("KRAJNJE_VREME", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[acoEntities1].[Slobodni_Stolovi](@DATUM, @POCETNO_VREME, @KRAJNJE_VREME)", dATUMParameter, pOCETNO_VREMEParameter, kRAJNJE_VREMEParameter);
+        }
     }
 }

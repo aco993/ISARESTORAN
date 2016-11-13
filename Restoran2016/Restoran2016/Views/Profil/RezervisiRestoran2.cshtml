@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "RezervisiRestoran2";
+}
+
+@{
+    int kolona = @ViewBag.BrojStolova / @ViewBag.BrojRedova;
+}
+
+
+
+<h2>RezervisiRestoran2</h2>
+
+
+@for (var m = 0; m < kolona; m++)
+{
+    <tr>
+        @for (var n = 1; n <= @ViewBag.BrojRedova; n++)
+        {
+            if ((m * @ViewBag.BrojRedova + n) >= 10)
+            {
+
+                if (ViewBag.listaDostupnih.Contains((m * @ViewBag.BrojRedova + n).ToString()))
+                { 
+                <td>
+                    <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default" >@(m * @ViewBag.BrojRedova + n)</button>
+                </td> 
+        }
+                else { 
+                                <td>
+                    <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default" disabled >@(m * @ViewBag.BrojRedova + n)</button>
+                </td> 
+                                }
+            }
+            else
+            {
+                if (ViewBag.listaDostupnih.Contains((m * @ViewBag.BrojRedova + n).ToString()))
+                { 
+                <td>
+                    <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default" onclick="location.href='@Url.Action("RezervisiRestoran3", "Profil", new { id = (m * @ViewBag.BrojRedova + n)})'">0@(m * @ViewBag.BrojRedova + n)</button>
+                </td>
+                }
+                else
+                { 
+                                <td>
+                    <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default" disabled>0@(m * @ViewBag.BrojRedova + n)</button>
+                </td>
+                }
+            }
+
+        }
+        <p> </p>
+    </tr>
+
+
+}
+
+@if (@ViewBag.kolona * @ViewBag.BrojRedova < @ViewBag.BrojStolova)
+{
+
+    for (var n = @ViewBag.kolona * @ViewBag.BrojRedova + 1; n <= @ViewBag.BrojStolova; n++)
+    {
+        if (ViewBag.listaDostupnih.Contains(n.ToString())) { 
+        <td>
+            <button id="@n" type="submit" class="btn btn-default">@n</button>
+        </td>
+}
+else
+        { 
+                <td>
+            <button id="@n" type="submit" class="btn btn-default" disabled>@n</button>
+        </td>
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+

@@ -38,13 +38,13 @@
                 if ((m * @ViewBag.BrojRedova + n) >= 10)
                 {
                     <td>
-                        <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default">@(m * @ViewBag.BrojRedova + n)</button>
+                        <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default" disabled="disabled">@(m * @ViewBag.BrojRedova + n)</button>
                     </td>
                 }
                 else
                 {
                     <td>
-                        <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default">0@(m * @ViewBag.BrojRedova + n)</button>
+                        <button id="@(m * @ViewBag.BrojRedova + n)" type="submit"  class="btn btn-default">0@(m * @ViewBag.BrojRedova + n)</button>
                     </td>
                 }
 
@@ -67,10 +67,6 @@
    }
 
 }
-                                                     
-                                                     
-                                                     
-
 
 
     <fieldset>

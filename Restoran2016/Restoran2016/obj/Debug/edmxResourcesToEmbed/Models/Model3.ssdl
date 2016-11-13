@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="acoModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="aco2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="ADMIN">
     <Key>
       <PropertyRef Name="ID_ADMIN" />
@@ -171,28 +171,16 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="menadzeri" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idMenadzera" Type="nvarchar" Mode="In" />
+    <Parameter Name="idRestorana" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="napuni_rezervacije" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="broj" Type="int" Mode="In" />
     <Parameter Name="idGosta" Type="nvarchar" Mode="In" />
     <Parameter Name="idRestorana" Type="nvarchar" Mode="In" />
-    <Parameter Name="datum" Type="date" Mode="In" />
-    <Parameter Name="pocetak" Type="date" Mode="In" />
-    <Parameter Name="kraj" Type="date" Mode="In" />
-    <Parameter Name="sto" Type="varchar" Mode="In" />
   </Function>
-  <Function Name="Slobodni_Stolovi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="DATUM" Type="datetime" Mode="In" />
-    <Parameter Name="POCETNO_VREME" Type="datetime" Mode="In" />
-    <Parameter Name="KRAJNJE_VREME" Type="datetime" Mode="In" />
-    <ReturnType>
-      <CollectionType>
-        <RowType>
-          <Property Name="id_stola" Type="varchar" MaxLength="10" Nullable="false" />
-        </RowType>
-      </CollectionType>
-    </ReturnType>
-  </Function>
-  <EntityContainer Name="acoModel1StoreContainer">
+  <EntityContainer Name="aco2ModelStoreContainer">
     <EntitySet Name="ADMIN" EntityType="Self.ADMIN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GOST" EntityType="Self.GOST" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="JELOVNIK" EntityType="Self.JELOVNIK" Schema="dbo" store:Type="Tables" />

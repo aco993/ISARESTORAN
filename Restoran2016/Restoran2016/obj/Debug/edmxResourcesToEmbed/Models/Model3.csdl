@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="acoModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="aco2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="ADMIN">
     <Key>
       <PropertyRef Name="ID_ADMIN" />
@@ -68,10 +68,10 @@
     <Property Name="OPIS_RESTPRANA" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="LATITUDA" Type="Single" />
     <Property Name="LONGITUDA" Type="Single" />
+    <Property Name="BROJ_KOLONA" Type="Int32" />
     <NavigationProperty Name="JELOVNIKs" Relationship="Self.FK_JELOVNIK_RELATIONS_RESTORAN" FromRole="RESTORAN" ToRole="JELOVNIK" />
     <NavigationProperty Name="MENADZERs" Relationship="Self.FK_MENADZER_RELATIONS_RESTORAN" FromRole="RESTORAN" ToRole="MENADZER" />
     <NavigationProperty Name="STOes" Relationship="Self.FK_STO_RELATIONS_RESTORAN" FromRole="RESTORAN" ToRole="STO" />
-    <Property Name="BROJ_KOLONA" Type="Int32" />
   </EntityType>
   <EntityType Name="REZERVACIJA">
     <Key>
@@ -84,9 +84,9 @@
     <Property Name="OCENA" Type="Int32" Nullable="false" />
     <Property Name="VREME_DOLASKA" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="VREME_ODLASKA" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DATUM" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="GOST" Relationship="Self.FK_REZERVAC_RELATIONS_GOST" FromRole="REZERVACIJA" ToRole="GOST" />
     <NavigationProperty Name="STO" Relationship="Self.FK_REZERVAC_RELATIONS_STO" FromRole="REZERVACIJA" ToRole="STO" />
-    <Property Name="DATUM" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
   <EntityType Name="STO">
     <Key>
@@ -185,7 +185,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="acoEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="aco2Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ADMINs" EntityType="Self.ADMIN" />
     <EntitySet Name="GOSTs" EntityType="Self.GOST" />
     <EntitySet Name="JELOVNIKs" EntityType="Self.JELOVNIK" />
@@ -222,19 +222,19 @@
       <End Role="STO" EntitySet="STOes" />
       <End Role="REZERVACIJA" EntitySet="REZERVACIJAs" />
     </AssociationSet>
+    <FunctionImport Name="menadzeri" ReturnType="Collection(aco2Model.menadzeri_Result)">
+      <Parameter Name="idMenadzera" Mode="In" Type="String" />
+      <Parameter Name="idRestorana" Mode="In" Type="String" />
+    </FunctionImport>
     <FunctionImport Name="napuni_rezervacije">
       <Parameter Name="broj" Mode="In" Type="Int32" />
       <Parameter Name="idGosta" Mode="In" Type="String" />
       <Parameter Name="idRestorana" Mode="In" Type="String" />
-      <Parameter Name="datum" Mode="In" Type="DateTime" />
-      <Parameter Name="pocetak" Mode="In" Type="DateTime" />
-      <Parameter Name="kraj" Mode="In" Type="DateTime" />
-      <Parameter Name="sto" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="Slobodni_Stolovi" IsComposable="true" ReturnType="Collection(String)">
-      <Parameter Name="DATUM" Mode="In" Type="DateTime" />
-      <Parameter Name="POCETNO_VREME" Mode="In" Type="DateTime" />
-      <Parameter Name="KRAJNJE_VREME" Mode="In" Type="DateTime" />
     </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="menadzeri_Result">
+    <Property Type="String" Name="idMenadzera" Nullable="false" MaxLength="80" />
+    <Property Type="String" Name="ASD" Nullable="false" MaxLength="80" />
+    <Property Type="String" Name="ID_RESTORANA" Nullable="false" MaxLength="10" />
+  </ComplexType>
 </Schema>

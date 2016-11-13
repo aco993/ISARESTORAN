@@ -11,10 +11,14 @@ namespace Restoran2016.Controllers
     public class ProfilController : Controller
     {
         private acoEntities1 db = new acoEntities1();
+     
+       
+
         //
         // GET: /Profil/
         public ActionResult Profil()
-        {
+        {                 
+
             if (Session["idGosta"] == null)
             {
                 return RedirectToAction("Login", "Account");
@@ -272,7 +276,7 @@ namespace Restoran2016.Controllers
 
             return View(gost);
         }
-
+        [HttpGet]
         public ActionResult RezervisiRestoran(string id) {
             
             string email=Session["idGosta"].ToString();
@@ -286,6 +290,73 @@ namespace Restoran2016.Controllers
             return View(rez);
 
         
+        }
+        [HttpPost]
+        public ActionResult RezervisiRestoran(REZERVACIJA rez)
+        {
+            var slobodniStolovi= from x in db.REZERVACIJAs where !(x.DATUM==rez.DATUM && ((rez.VREME_DOLASKA<x.VREME_DOLASKA && rez.VREME_ODLASKA>x.VREME_DOLASKA) || (rez.VREME_DOLASKA>x.VREME_DOLASKA && rez.VREME_ODLASKA<x.VREME_ODLASKA) || (rez.VREME_DOLASKA<x.VREME_ODLASKA && rez.VREME_ODLASKA>x.VREME_ODLASKA))) select x.ID_STOLA;
+            var sviRezervisani = from x in db.REZERVACIJAs where (x.DATUM == rez.DATUM && ((rez.VREME_DOLASKA < x.VREME_DOLASKA && rez.VREME_ODLASKA > x.VREME_DOLASKA) || (rez.VREME_DOLASKA > x.VREME_DOLASKA && rez.VREME_ODLASKA < x.VREME_ODLASKA) || (rez.VREME_DOLASKA < x.VREME_ODLASKA && rez.VREME_ODLASKA > x.VREME_ODLASKA))) select x.ID_STOLA;
+            var sviStolovi = from x in db.STOes where x.ID_RESTORANA == rez.ID_RESTORANA select x.ID_STOLA;
+            var sviSlobodni = sviStolovi.Except(sviRezervisani);
+
+            List<String> lista = new List<String>();
+            DateTime datum = rez.DATUM;
+            DateTime dolazak = rez.VREME_DOLASKA;
+            DateTime odlazak = rez.VREME_ODLASKA;
+         
+            foreach (string num in sviSlobodni)
+            {
+                lista.Add(num);
+            }
+            
+
+            //db.napuni_rezervacije(5, rez.EMAIL_GOSTA, rez.ID_RESTORANA);
+            //db.SaveChanges();
+            TempData["checkboxovi"] = lista;
+            TempData["datum"] = datum;
+            TempData["dolazak"] = dolazak;
+            TempData["odlazak"] = odlazak;
+            return RedirectToAction("RezervisiRestoran2", new  {id=rez.ID_RESTORANA});
+
+
+        }
+        [HttpGet]
+        public ActionResult RezervisiRestoran2(string id)
+        {
+
+
+            RESTORAN r = db.RESTORANs.Find(id);
+            ViewBag.BrojRedova = r.BROJ_KOLONA; //prekoprofilamenadzera
+            int stolova= (from x in db.STOes where x.ID_RESTORANA==id select x).Count();
+            ViewBag.BrojStolova = stolova;
+            //var cb = TempData["ckeckboxovi"];
+            TempData["r"] = r.ID_RESTORANA;
+            List<string> lista = TempData["checkboxovi"] as List<string>;
+            ViewBag.listaDostupnih = lista; 
+            return View();
+
+
+        }
+       
+        public ActionResult RezervisiRestoran3(string id)
+        {
+
+            String idgosta = Session["idGosta"].ToString();
+           // var ubaciRezervaciju= from x in db.REZERVACIJAs
+            REZERVACIJA rez = new REZERVACIJA();
+            rez.EMAIL_GOSTA = idgosta;
+            //rez.ID_STOLA = idStola;
+            rez.DATUM = (System.DateTime)TempData["datum"];
+            rez.VREME_DOLASKA = (System.DateTime)TempData["dolazak"];
+            rez.VREME_ODLASKA = (System.DateTime)TempData["odlazak"];
+            rez.ID_RESTORANA = (String)TempData["r"];
+            db.napuni_rezervacije(99,rez.EMAIL_GOSTA, rez.ID_RESTORANA,id, rez.DATUM, rez.VREME_DOLASKA, rez.VREME_ODLASKA);
+            db.SaveChanges();
+            //db.REZERVACIJAs.Add()
+            return RedirectToAction("Profil");
+           
+
+
         }
 	}
 }

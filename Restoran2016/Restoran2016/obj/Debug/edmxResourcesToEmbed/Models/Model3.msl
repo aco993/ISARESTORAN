@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="acoModel1StoreContainer" CdmEntityContainer="acoEntities1">
+  <EntityContainerMapping StorageEntityContainer="aco2ModelStoreContainer" CdmEntityContainer="aco2Entities">
     <EntitySetMapping Name="ADMINs">
-      <EntityTypeMapping TypeName="acoModel1.ADMIN">
+      <EntityTypeMapping TypeName="aco2Model.ADMIN">
         <MappingFragment StoreEntitySet="ADMIN">
           <ScalarProperty Name="ID_ADMIN" ColumnName="ID_ADMIN" />
           <ScalarProperty Name="PASS_ADMINA" ColumnName="PASS_ADMINA" />
@@ -10,7 +10,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="GOSTs">
-      <EntityTypeMapping TypeName="acoModel1.GOST">
+      <EntityTypeMapping TypeName="aco2Model.GOST">
         <MappingFragment StoreEntitySet="GOST">
           <ScalarProperty Name="EMAIL_GOSTA" ColumnName="EMAIL_GOSTA" />
           <ScalarProperty Name="PASS_GOSTA" ColumnName="PASS_GOSTA" />
@@ -24,7 +24,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="JELOVNIKs">
-      <EntityTypeMapping TypeName="acoModel1.JELOVNIK">
+      <EntityTypeMapping TypeName="aco2Model.JELOVNIK">
         <MappingFragment StoreEntitySet="JELOVNIK">
           <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
           <ScalarProperty Name="ID_JELA" ColumnName="ID_JELA" />
@@ -35,7 +35,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="MENADZERs">
-      <EntityTypeMapping TypeName="acoModel1.MENADZER">
+      <EntityTypeMapping TypeName="aco2Model.MENADZER">
         <MappingFragment StoreEntitySet="MENADZER">
           <ScalarProperty Name="IDMENADZERA" ColumnName="IDMENADZERA" />
           <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
@@ -44,7 +44,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PRIJATELJIs">
-      <EntityTypeMapping TypeName="acoModel1.PRIJATELJI">
+      <EntityTypeMapping TypeName="aco2Model.PRIJATELJI">
         <MappingFragment StoreEntitySet="PRIJATELJI">
           <ScalarProperty Name="EMAIL_GOSTA1" ColumnName="EMAIL_GOSTA1" />
           <ScalarProperty Name="EMAIL_GOSTA" ColumnName="EMAIL_GOSTA" />
@@ -53,9 +53,8 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="RESTORANs">
-      <EntityTypeMapping TypeName="acoModel1.RESTORAN">
+      <EntityTypeMapping TypeName="aco2Model.RESTORAN">
         <MappingFragment StoreEntitySet="RESTORAN">
-          <ScalarProperty Name="BROJ_KOLONA" ColumnName="BROJ_KOLONA" />
           <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
           <ScalarProperty Name="NAZIV_RESTORANA" ColumnName="NAZIV_RESTORANA" />
           <ScalarProperty Name="ADRESA_RESTORANA" ColumnName="ADRESA_RESTORANA" />
@@ -65,13 +64,13 @@
           <ScalarProperty Name="OPIS_RESTPRANA" ColumnName="OPIS_RESTPRANA" />
           <ScalarProperty Name="LATITUDA" ColumnName="LATITUDA" />
           <ScalarProperty Name="LONGITUDA" ColumnName="LONGITUDA" />
+          <ScalarProperty Name="BROJ_KOLONA" ColumnName="BROJ_KOLONA" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="REZERVACIJAs">
-      <EntityTypeMapping TypeName="acoModel1.REZERVACIJA">
+      <EntityTypeMapping TypeName="aco2Model.REZERVACIJA">
         <MappingFragment StoreEntitySet="REZERVACIJA">
-          <ScalarProperty Name="DATUM" ColumnName="DATUM" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="EMAIL_GOSTA" ColumnName="EMAIL_GOSTA" />
           <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
@@ -79,11 +78,12 @@
           <ScalarProperty Name="OCENA" ColumnName="OCENA" />
           <ScalarProperty Name="VREME_DOLASKA" ColumnName="VREME_DOLASKA" />
           <ScalarProperty Name="VREME_ODLASKA" ColumnName="VREME_ODLASKA" />
+          <ScalarProperty Name="DATUM" ColumnName="DATUM" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="STOes">
-      <EntityTypeMapping TypeName="acoModel1.STO">
+      <EntityTypeMapping TypeName="aco2Model.STO">
         <MappingFragment StoreEntitySet="STO">
           <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
           <ScalarProperty Name="ID_STOLA" ColumnName="ID_STOLA" />
@@ -91,7 +91,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="napuni_rezervacije" FunctionName="acoModel1.Store.napuni_rezervacije" />
-    <FunctionImportMapping FunctionImportName="Slobodni_Stolovi" FunctionName="acoModel1.Store.Slobodni_Stolovi" />
+    <FunctionImportMapping FunctionImportName="menadzeri" FunctionName="aco2Model.Store.menadzeri">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="aco2Model.menadzeri_Result">
+          <ScalarProperty Name="idMenadzera" ColumnName="idMenadzera" />
+          <ScalarProperty Name="ASD" ColumnName="ASD" />
+          <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="napuni_rezervacije" FunctionName="aco2Model.Store.napuni_rezervacije" />
   </EntityContainerMapping>
 </Mapping>
