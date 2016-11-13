@@ -23,11 +23,11 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayName("naziv")
+                @Html.ActionLink("Naziv", "PronadjiRestorane", new { sortOrder = ViewBag.nazivSort })
             </th>
 
             <th>
-                @Html.DisplayName("opis")
+                @Html.ActionLink("Opis", "PronadjiRestorane", new { sortOrder = ViewBag.vrstaSort })
             </th>
  
 
@@ -38,11 +38,12 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(model => item.NAZIV_RESTORANA)
+
+                    @Html.DisplayFor(model => item.NAZIV_RESTORANA, new { sortOrder = ViewBag.nazivSort })
                 </td>
 
                 <td>
-                    @Html.DisplayFor(model => item.OPIS_RESTPRANA)
+                    @Html.DisplayFor(model => item.OPIS_RESTPRANA, new { sortOrder = ViewBag.vrstaSort })
                 </td>
                 <td>
                     @Html.ActionLink("Rezervisi", "RezervisiRestoran", new { @id = item.ID_RESTORANA })

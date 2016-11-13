@@ -105,8 +105,10 @@ namespace Restoran2016.Controllers
             return View(gosti);
         }
 
-        public ActionResult PronadjiRestorane(string naziv, string vrsta)
+        public ActionResult PronadjiRestorane(string naziv, string vrsta, string sortOrder)
         {
+            ViewBag.nazivSort=String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.vrstaSort=sortOrder=="Opis" ? "vrsta_desc" : "vrsta_asc";
 
             var restorani = from r in db.RESTORANs
                         select r;
@@ -119,6 +121,22 @@ namespace Restoran2016.Controllers
             if (!String.IsNullOrEmpty(vrsta))
             {
                 restorani = restorani.Where(x => x.OPIS_RESTPRANA.Contains(vrsta));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    restorani = restorani.OrderByDescending(s => s.NAZIV_RESTORANA);
+                    break;
+                case "vrsta_asc":
+                    restorani = restorani.OrderBy(s => s.OPIS_RESTPRANA);
+                    break;
+                case "vrsta_desc":
+                    restorani = restorani.OrderByDescending(s => s.OPIS_RESTPRANA);
+                    break;
+                default:
+                    restorani = restorani.OrderBy(s => s.NAZIV_RESTORANA);
+                    break;
             }
 
             return View(restorani);

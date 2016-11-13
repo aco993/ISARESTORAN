@@ -24,20 +24,22 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.ASD, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ASD)
+                @Html.ValidationMessageFor(model => model.ASD)
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.RESTORAN.NAZIV_RESTORANA, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.RESTORAN.NAZIV_RESTORANA, new SelectList(ViewBag.restorani as System.Collections.IEnumerable), "Izaberi Restoran", new { style = "width: 160px;" })
+                @Html.DropDownListFor(model => model.RESTORAN.NAZIV_RESTORANA, new SelectList(ViewBag.restorani as System.Collections.IEnumerable), "Izaberi Restoran", new { @class = "control-label col-md-2", style = "width: 174px;" })
                 @Html.ValidationMessageFor(model => model.RESTORAN.NAZIV_RESTORANA)
             </div>
         </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.ASD, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ASD)
-                    @Html.ValidationMessageFor(model => model.ASD)
-                </div>
-            </div>
+
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
