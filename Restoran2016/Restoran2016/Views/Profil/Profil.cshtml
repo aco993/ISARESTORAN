@@ -6,7 +6,25 @@
 
 <h2>Profil</h2>
 
-<fieldset>
+@{
+<script src="~/Content/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Content/Scripts/jquery-ui-1.8.24.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+}
+<div id="tabs">
+    <ul>
+        <li>
+            <a href="#tabs-1">Osnovni podaci</a>
+        </li>
+        <li>
+            <a href="#tabs-2">Prijatelji</a>
+        </li>
+        <li>
+            <a href="#tabs-3">Restorani</a>
+        </li>
+    </ul>
+    <div id="tabs-1">
+         <fieldset>
     <legend>Osnovni podaci</legend>
 
     <div class="display-label">
@@ -22,166 +40,178 @@
     </div>
 
     @Html.ActionLink("Edit", "Edit", new { id = Model.Email })
-</fieldset>
+</fieldset> 
+    </div>
+    <div id="tabs-2">
+        <fieldset>
+            <legend>Prijatelji</legend>
+            <table>
+                <tr>
+                    <th>
+                        Ime
+                    </th>
+                    <th>
+                        Prezime
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th></th>
+                </tr>
 
-<fieldset>
-    <legend>Prijatelji</legend>
-    <table>
-        <tr>
-            <th>
-                Ime
-            </th>
-            <th>
-                Prezime
-            </th>
-            <th>
-                Email
-            </th>
-            <th></th>
-        </tr>
+                @foreach (var item in Model.prijatelji)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IME_GOSTA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PREZIME_GOSTA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EMAIL_GOSTA)
+                        </td>
 
-        @foreach (var item in Model.prijatelji)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IME_GOSTA)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PREZIME_GOSTA)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EMAIL_GOSTA)
-                </td>
+                        <td>
 
-                <td>
+                            @Html.ActionLink("Obrisi", "ObrisiP", new { id = item.EMAIL_GOSTA })
+                        </td>
+                    </tr>
+                }
 
-                    @Html.ActionLink("Obrisi", "ObrisiP", new { id = item.EMAIL_GOSTA })
-                </td>
-            </tr>
-        }
+            </table>
+        </fieldset>
 
-    </table>
-</fieldset>
+        <fieldset>
+            <legend>Zahtevi</legend>
 
-<fieldset>
-    <legend>Zahtevi</legend>
+            <table>
+                <tr>
+                    <th>
+                        Ime
+                    </th>
+                    <th>
+                        Prezime
+                    </th>
 
-    <table>
-        <tr>
-            <th>
-                Ime
-            </th>
-            <th>
-                Prezime
-            </th>
+                    <th></th>
+                </tr>
 
-            <th></th>
-        </tr>
+                @foreach (var item in Model.zahtevi)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IME_GOSTA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PREZIME_GOSTA)
+                        </td>
 
-        @foreach (var item in Model.zahtevi)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IME_GOSTA)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PREZIME_GOSTA)
-                </td>
+                        <td>
+                            @Html.ActionLink("Prihvati", "Dodaj2", new { id = item.EMAIL_GOSTA })
+                        </td>
 
-                <td>
-                    @Html.ActionLink("Prihvati", "Dodaj2", new { id = item.EMAIL_GOSTA })
-                </td>
+                        <td>
+                            @Html.ActionLink("Odbij", "OdbijP", new { id = item.EMAIL_GOSTA })
+                        </td>
 
-                <td>
-                    @Html.ActionLink("Odbij", "OdbijP", new { id = item.EMAIL_GOSTA })
-                </td>
+                    </tr>
+                }
 
-            </tr>
-        }
+            </table>
+        </fieldset>
 
-    </table>
-</fieldset>
+        <fieldset>
+            <legend>Predlozi</legend>
 
-<fieldset>
-    <legend>Predlozi</legend>
+            <table>
+                <tr>
+                    <th>
+                        Ime
+                    </th>
+                    <th>
+                        Prezime
+                    </th>
 
-    <table>
-        <tr>
-            <th>
-                Ime
-            </th>
-            <th>
-                Prezime
-            </th>
+                    <th></th>
+                </tr>
 
-            <th></th>
-        </tr>
+                @foreach (var item in Model.neprijatelji)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IME_GOSTA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PREZIME_GOSTA)
+                        </td>
 
-        @foreach (var item in Model.neprijatelji)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IME_GOSTA)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PREZIME_GOSTA)
-                </td>
+                        <td>
+                            @Html.ActionLink("Dodaj", "Dodaj", new { id = item.EMAIL_GOSTA })
+                        </td>
 
-                <td>
-                    @Html.ActionLink("Dodaj", "Dodaj", new { id = item.EMAIL_GOSTA})
-                </td>
+                    </tr>
+                }
 
-            </tr>
-        }
+            </table>
+        </fieldset>
+        @Html.ActionLink("Pronadji Prijatelje", "PronadjiPrijatelje")
+    </div>
+    <div id="tabs-3">
+        <fieldset>
+            <legend>Restorani</legend>
+            <table>
+                <tr>
+                    <th>
+                        Naziv
+                    </th>
+                    <th>
+                        Vrsta
+                    </th>
+                    <th>
+                        Ocena
+                    </th>
+                    <th></th>
+                </tr>
 
-    </table>
-</fieldset>
+                @foreach (var item in Model.restorani)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NAZIV_RESTORANA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OPIS_RESTPRANA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PROSECNA_OCENA)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Rezervisi", "RezervisiRestoran", new { id = item.ID_RESTORANA })
+                        </td>
 
-<fieldset>
-    <legend>Restorani</legend>
-    <table>
-        <tr>
-            <th>
-                Naziv
-            </th>
-            <th>
-                Vrsta
-            </th>
-            <th>
-                Ocena
-            </th>
-            <th></th>
-        </tr>
+                    </tr>
+                }
 
-        @foreach (var item in Model.restorani)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NAZIV_RESTORANA)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OPIS_RESTPRANA)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PROSECNA_OCENA)
-                </td>
-                <td>
-                    @Html.ActionLink("Rezervisi", "RezervisiRestoran", new { id=item.ID_RESTORANA }) 
-                </td>
+            </table>
+        </fieldset>
+        @Html.ActionLink("Pronadji Restorane", "PronadjiRestorane")
+    </div>
+</div>
+<div id="tabid"></div>
 
-            </tr>
-        }
+<script>
+$("#tabs").tabs({
+    activate: function (event, ui) {
+        var active = $('#tabs').tabs('option', 'active');
+        $("#tabid").html('the tab id is ' + $("#tabs ul>li a").eq(active).attr("href"));
 
-    </table>
-</fieldset>
+    }
+}
 
-<p>
+);
+</script>
 
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
 
-    @Html.ActionLink("Logout", "Login", "Gost")
 
-    @Html.ActionLink("Pronadji Prijatelje", "PronadjiPrijatelje")
 
-    @Html.ActionLink("Pronadji Restorane", "PronadjiRestorane")
-</p>

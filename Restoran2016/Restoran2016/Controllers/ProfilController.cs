@@ -327,9 +327,6 @@ namespace Restoran2016.Controllers
                 lista.Add(num);
             }
             
-
-            //db.napuni_rezervacije(5, rez.EMAIL_GOSTA, rez.ID_RESTORANA);
-            //db.SaveChanges();
             TempData["checkboxovi"] = lista;
             TempData["datum"] = datum;
             TempData["dolazak"] = dolazak;
@@ -341,8 +338,7 @@ namespace Restoran2016.Controllers
         [HttpGet]
         public ActionResult RezervisiRestoran2(string id)
         {
-
-
+            
             RESTORAN r = db.RESTORANs.Find(id);
             ViewBag.BrojRedova = r.BROJ_KOLONA; //prekoprofilamenadzera
             int stolova= (from x in db.STOes where x.ID_RESTORANA==id select x).Count();
@@ -355,7 +351,7 @@ namespace Restoran2016.Controllers
 
 
         }
-       
+     [HttpPost]
         public ActionResult RezervisiRestoran3(string id)
         {
 
@@ -371,6 +367,10 @@ namespace Restoran2016.Controllers
             db.napuni_rezervacije(99,rez.EMAIL_GOSTA, rez.ID_RESTORANA,id, rez.DATUM, rez.VREME_DOLASKA, rez.VREME_ODLASKA);
             db.SaveChanges();
             //db.REZERVACIJAs.Add()
+            List<string> lista = TempData["checkboxovi"] as List<String>;
+     //       lista.Remove(id);
+           
+            
             return RedirectToAction("Profil");
            
 
