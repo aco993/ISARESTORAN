@@ -20,5 +20,9 @@ namespace Restoran2016.ModelView
         public List<GOST> neprijatelji { get; set; }
         public List<GOST> zahtevi { get; set; }
         public List<RESTORAN> restorani { get; set; }
+
+        public List<REZERVACIJA> poseteRestoranima { get; set; }
+
+        public List<REZERVACIJA> buducePosete { get; set; }
     }
 }

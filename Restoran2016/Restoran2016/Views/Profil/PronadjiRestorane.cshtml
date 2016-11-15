@@ -46,6 +46,10 @@
                     @Html.DisplayFor(model => item.OPIS_RESTPRANA, new { sortOrder = ViewBag.vrstaSort })
                 </td>
                 <td>
+                    @Html.ActionLink("Informacije", "InformacijeORestoranu", new { @id = item.ID_RESTORANA })
+
+                </td>
+                <td>
                     @Html.ActionLink("Rezervisi", "RezervisiRestoran", new { @id = item.ID_RESTORANA })
 
                 </td>

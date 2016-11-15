@@ -1,0 +1,72 @@
+﻿@model Restoran2016.Models.RESTORAN
+
+@{
+    ViewBag.Title = "InformacijeORestoranu";
+}
+
+<h2>Informacije O Restoranu @Html.DisplayNameFor(model => model.NAZIV_RESTORANA)</h2>
+
+<div>
+    <h4>RESTORAN</h4>
+	<hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NAZIV_RESTORANA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NAZIV_RESTORANA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ADRESA_RESTORANA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ADRESA_RESTORANA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MAIL_RESTORANA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MAIL_RESTORANA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TELEFON_RESTORANA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TELEFON_RESTORANA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PROSECNA_OCENA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PROSECNA_OCENA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OPIS_RESTPRANA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OPIS_RESTPRANA)
+        </dd>
+
+
+
+
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Vrati se nazad", null, null, null, new { href = Request.UrlReferrer })
+</p>

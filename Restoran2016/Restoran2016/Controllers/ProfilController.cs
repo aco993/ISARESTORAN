@@ -83,6 +83,22 @@ namespace Restoran2016.Controllers
                     prof.restorani.Add(db.RESTORANs.Where(z => z.ID_RESTORANA == item).Single());
                 }
 
+                var posete = db.REZERVACIJAs.Where(x=>x.VREME_ODLASKA<System.DateTime.Now).Where(x => x.EMAIL_GOSTA == id).Select(x => x.ID).ToList();
+                prof.poseteRestoranima = new List<REZERVACIJA>();
+
+                foreach (var item in posete)
+                {
+                    prof.poseteRestoranima.Add(db.REZERVACIJAs.Where(x=>x.ID==item).Single());
+                }
+
+                var buduce = db.REZERVACIJAs.Where(x => x.VREME_ODLASKA > System.DateTime.Now).Where(x => x.EMAIL_GOSTA == id).Select(x => x.ID).ToList();
+                prof.buducePosete = new List<REZERVACIJA>();
+
+                foreach (var item in buduce)
+                {
+                    prof.buducePosete.Add(db.REZERVACIJAs.Where(x => x.ID == item).Single());
+                }
+
                 return View(prof);
             }
 
@@ -142,6 +158,11 @@ namespace Restoran2016.Controllers
             return View(restorani);
         }
 
+        public ActionResult InformacijeORestoranu(string id) {
+            RESTORAN rest = db.RESTORANs.Find(id);
+        return View(rest);
+        }
+
         [HttpGet]
         public ActionResult Dodaj(string id)
         {
@@ -152,6 +173,27 @@ namespace Restoran2016.Controllers
                 return HttpNotFound();
             }
             return View(gost);
+        }
+        [HttpGet]
+        public ActionResult OceniRestoran(int id) {
+
+            REZERVACIJA rez = db.REZERVACIJAs.Find(id); 
+            return View(rez);
+        }
+
+        [HttpPost]
+        public ActionResult OceniRestoran(REZERVACIJA rez)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                db.Entry(rez).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Profil");
+            }
+
+            return View(rez);
         }
 
         [HttpPost, ActionName("Dodaj")]

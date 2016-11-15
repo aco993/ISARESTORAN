@@ -11,6 +11,7 @@
 <script src="~/Content/Scripts/jquery-ui-1.8.24.min.js"></script>
 <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
 }
+
 <div id="tabs">
     <ul>
         <li>
@@ -187,6 +188,9 @@
                             @Html.DisplayFor(modelItem => item.PROSECNA_OCENA)
                         </td>
                         <td>
+                            @Html.ActionLink("Informacije", "InformacijeORestoranu", new { id = item.ID_RESTORANA })
+                        </td>
+                        <td>
                             @Html.ActionLink("Rezervisi", "RezervisiRestoran", new { id = item.ID_RESTORANA })
                         </td>
 
@@ -196,21 +200,124 @@
             </table>
         </fieldset>
         @Html.ActionLink("Pronadji Restorane", "PronadjiRestorane")
+        <fieldset>
+            <legend>Istorija poseta</legend>
+            <table>
+                <tr>
+                    <th>
+                        Naziv
+                    </th>
+                    <th>
+                        Datum
+                    </th>
+                    <th>
+                        Ocena
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.poseteRestoranima)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID_RESTORANA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DATUM)
+                        </td>
+                        @if (item.OCENA <= 0)
+                        {
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                @Html.ActionLink("Oceni", "OceniRestoran", new { id = item.ID })
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OCENA)
+                            </td>
+                        }
+
+                    </tr>
+                }
+
+            </table>
+
+
+        </fieldset>
+        
+        
+            <fieldset>
+                <legend>Rezervacije</legend>
+                <table>
+                    <tr>
+                        <th>
+                            Naziv
+                        </th>
+                        <th>
+                            Datum
+                        </th>
+                        <th>
+                            Od
+                        </th>
+                        <th>
+                            Do
+                        </th>
+                        <th>
+                            Broj Stola
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.buducePosete)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ID_RESTORANA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DATUM)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.VREME_DOLASKA)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.VREME_ODLASKA)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.STO)
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            </fieldset>
+
+        
+       
     </div>
 </div>
 <div id="tabid"></div>
 
 <script>
-$("#tabs").tabs({
-    activate: function (event, ui) {
-        var active = $('#tabs').tabs('option', 'active');
-        $("#tabid").html('the tab id is ' + $("#tabs ul>li a").eq(active).attr("href"));
+    $("#tabs").tabs({
+        activate: function (event, ui) {
+            var active = $('#tabs').tabs('option', 'active');
+            $("#tabid").html('the tab id is ' + $("#tabs ul>li a").eq(active).attr("href"));
 
+        }
     }
-}
 
-);
+    );
 </script>
+
 
 
 

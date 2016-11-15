@@ -375,6 +375,8 @@
     <Content Include="Views\Profil\RezervisiRestoran.cshtml" />
     <Content Include="Views\Profil\RezervisiRestoran2.cshtml" />
     <Content Include="Views\Profil\RezervisiRestoran3.cshtml" />
+    <Content Include="Views\Profil\InformacijeORestoranu.cshtml" />
+    <Content Include="Views\Profil\OceniRestoran.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
