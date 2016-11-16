@@ -48,9 +48,6 @@ namespace Restoran2016.Controllers
 
                 }
 
-
-
-              // var zaht = db.PRIJATELJIs.Where(z => z.EMAIL_GOSTA == id).Select(z => z.EMAIL_GOSTA1).ToList();
                 var zaht = db.PRIJATELJIs.Where(z => z.EMAIL_GOSTA == id).Where(z=>z.EMAIL_GOSTA1!=id).Select(z => z.EMAIL_GOSTA1).ToList();
                 prof.zahtevi = new List<GOST>();
 
@@ -82,6 +79,7 @@ namespace Restoran2016.Controllers
                 {
                     prof.restorani.Add(db.RESTORANs.Where(z => z.ID_RESTORANA == item).Single());
                 }
+                ViewBag.restorani = prof.restorani;
 
                 var posete = db.REZERVACIJAs.Where(x=>x.VREME_ODLASKA<System.DateTime.Now).Where(x => x.EMAIL_GOSTA == id).Select(x => x.ID).ToList();
                 prof.poseteRestoranima = new List<REZERVACIJA>();
@@ -160,6 +158,17 @@ namespace Restoran2016.Controllers
 
         public ActionResult InformacijeORestoranu(string id) {
             RESTORAN rest = db.RESTORANs.Find(id);
+           var jel = from x in db.JELOVNIKs where (x.ID_RESTORANA == id) 
+                                        select x.ID_JELA;
+
+           List<JELOVNIK> jelLista = new List<JELOVNIK>();
+           foreach (var item in jel)
+           {
+               jelLista.Add(db.JELOVNIKs.Where(x=>x.ID_JELA==item).Single());         
+           }
+           
+            ViewBag.jel =jelLista;
+         
         return View(rest);
         }
 

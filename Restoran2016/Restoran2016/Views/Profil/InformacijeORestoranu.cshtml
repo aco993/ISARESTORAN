@@ -59,13 +59,46 @@
             @Html.DisplayFor(model => model.OPIS_RESTPRANA)
         </dd>
 
-
-
-
-
-
-
     </dl>
+
+    <fieldset>
+        <legend> Jelovnik </legend>
+        <table>
+            <tr>
+
+                <th>
+                    Naziv Jela
+                </th>
+                <th>
+                    Opis Jela
+                </th>
+                <th>
+                    Cena
+                </th>
+                <th></th>
+            </tr>
+
+                @foreach (var item in ViewBag.jel)
+{
+                    <tr>
+
+                        <td>
+                            @item.NAZIV_JELA
+
+                        </td>
+                        <td>
+                            @item.OPIS
+                        </td>
+                        <td>
+                            @item.CENA_JELA
+                        </td>
+
+                    </tr>
+                }
+
+</table>
+    </fieldset>
+
 </div>
 <p>
     @Html.ActionLink("Vrati se nazad", null, null, null, new { href = Request.UrlReferrer })

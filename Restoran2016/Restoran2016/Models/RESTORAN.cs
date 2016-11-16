@@ -11,6 +11,7 @@ namespace Restoran2016.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class RESTORAN
     {
@@ -26,6 +27,7 @@ namespace Restoran2016.Models
         public string ADRESA_RESTORANA { get; set; }
         public string MAIL_RESTORANA { get; set; }
         public string TELEFON_RESTORANA { get; set; }
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public float PROSECNA_OCENA { get; set; }
         public string OPIS_RESTPRANA { get; set; }
         public Nullable<float> LATITUDA { get; set; }
