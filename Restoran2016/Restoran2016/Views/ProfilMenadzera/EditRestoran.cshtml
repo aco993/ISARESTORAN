@@ -68,12 +68,15 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LONGITUDA, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.BROJ_KOLONA, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LONGITUDA)
-                @Html.ValidationMessageFor(model => model.LONGITUDA)
+                @Html.EditorFor(model => model.BROJ_KOLONA)
+                @Html.ValidationMessageFor(model => model.BROJ_KOLONA)
             </div>
         </div>
+
+        @Html.HiddenFor(model=>model.BROJ_KOLONA)
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

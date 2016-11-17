@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Restoran2016.Models;
 using System.Data.Entity;
+using Restoran2016.GeocodeServices;
+using Restoran2016.ImageryServices; 
 
 namespace Restoran2016.Controllers
 {
@@ -12,8 +14,6 @@ namespace Restoran2016.Controllers
     {
         private acoEntities1 db = new acoEntities1();
      
-       
-
         //
         // GET: /Profil/
         public ActionResult Profil()
@@ -36,7 +36,6 @@ namespace Restoran2016.Controllers
                 prof.pass = g.PASS_GOSTA;
                 prof.cpass = g.CPASS_GOSTA;
                 
-
                 var pr = db.PRIJATELJIs.Where(z => z.EMAIL_GOSTA1 == id).Select(z => z.EMAIL_GOSTA).ToList(); //lista poslatih zahteva
                 var pr2 = db.PRIJATELJIs.Where(z => z.EMAIL_GOSTA == id).Select(z => z.EMAIL_GOSTA1).ToList(); //lista primljenih zahteva
                 prof.prijatelji = new List<GOST>();
@@ -73,15 +72,12 @@ namespace Restoran2016.Controllers
                 var rest = db.RESTORANs.Select(z => z.ID_RESTORANA).ToList();
                 prof.restorani = new List<RESTORAN>();
 
-
-
                 foreach (var item in rest)
                 {
                     prof.restorani.Add(db.RESTORANs.Where(z => z.ID_RESTORANA == item).Single());
                 }
                 ViewBag.restorani = prof.restorani;
 
-                //var posete = db.REZERVACIJAs.Where(x=>x.VREME_ODLASKA<System.DateTime.Now).Where(x => x.EMAIL_GOSTA == id).Select(x => x.ID).ToList();
                 var posete = from y in db.REZERVACIJAs
                              join z in db.RESTORANs on y.ID_RESTORANA equals z.ID_RESTORANA 
                              where y.EMAIL_GOSTA == id 
@@ -162,7 +158,7 @@ namespace Restoran2016.Controllers
            }
            
             ViewBag.jel =jelLista;
-         
+            ViewBag.MapUrl = MapAddress(rest.ADRESA_RESTORANA, 10000, "ROAD", 240, 320);
         return View(rest);
         }
 
@@ -176,27 +172,6 @@ namespace Restoran2016.Controllers
                 return HttpNotFound();
             }
             return View(gost);
-        }
-        [HttpGet]
-        public ActionResult OceniRestoran(int id) {
-
-            REZERVACIJA rez = db.REZERVACIJAs.Find(id); 
-            return View(rez);
-        }
-
-        [HttpPost]
-        public ActionResult OceniRestoran(REZERVACIJA rez)
-        {
-
-            if (ModelState.IsValid)
-            {
-
-                db.Entry(rez).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Profil");
-            }
-
-            return View(rez);
         }
 
         [HttpPost, ActionName("Dodaj")]
@@ -214,7 +189,7 @@ namespace Restoran2016.Controllers
             return RedirectToAction("Profil");
 
         }
-
+//TODO nepotrebne obe metode Dodaj i Dodaj2
         [HttpGet]
         public ActionResult Dodaj2(string id)
         {
@@ -245,7 +220,7 @@ namespace Restoran2016.Controllers
             return RedirectToAction("Profil");
 
         }
-    [HttpGet]
+        [HttpGet]
         public ActionResult ObrisiP(string id)
         {
             GOST gost = db.GOSTs.Find(id);
@@ -255,8 +230,6 @@ namespace Restoran2016.Controllers
                 return HttpNotFound();
             }
 
-
-
             return View(gost);
         }
 
@@ -264,8 +237,7 @@ namespace Restoran2016.Controllers
         public ActionResult ObrisiPConfirmed(string id)
         {
             string posiljalac = Session["idGosta"].ToString();
-            PRIJATELJI pr = db.PRIJATELJIs.Find(posiljalac,id);
-
+            PRIJATELJI pr = db.PRIJATELJIs.Find(posiljalac, id);
 
             db.PRIJATELJIs.Remove(pr);
 
@@ -283,8 +255,6 @@ namespace Restoran2016.Controllers
             {
                 return HttpNotFound();
             }
-
-
 
             return View(gost);
         }
@@ -317,7 +287,7 @@ namespace Restoran2016.Controllers
             prof.Email = gost.EMAIL_GOSTA;
             prof.pass = gost.PASS_GOSTA;
             prof.cpass = gost.CPASS_GOSTA;
-            
+
             return View(prof);
         }
 
@@ -339,6 +309,30 @@ namespace Restoran2016.Controllers
 
             return View(gost);
         }
+
+        [HttpGet]
+        public ActionResult OceniRestoran(int id) {
+
+            REZERVACIJA rez = db.REZERVACIJAs.Find(id); 
+            return View(rez);
+        }
+
+        [HttpPost]
+        public ActionResult OceniRestoran(REZERVACIJA rez)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                db.Entry(rez).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Profil");
+            }
+
+            return View(rez);
+        }
+
+
         [HttpGet]
         public ActionResult RezervisiRestoran(string id) {
             
@@ -421,5 +415,88 @@ namespace Restoran2016.Controllers
 
 
         }
+
+     private GeocodeServices.Location GeocodeAddress(string address)
+     {
+         GeocodeRequest geocodeRequest = new GeocodeRequest();
+         // Set the credentials using a valid Bing Maps Key
+         geocodeRequest.Credentials = new GeocodeServices.Credentials();
+         geocodeRequest.Credentials.ApplicationId = "7Xe5dWLJW6JIhH6jDYR7~6wrgqqAAstaYhxwKEyAB6g~AhB0MhPMBgrTWhG-cxBqbFxaJe92xk7oGVnJPfBckupM4wWTauJQIMkjs5Fs_Z5u";
+         // Set the full address query
+         geocodeRequest.Query = address;
+
+         // Set the options to only return high confidence results 
+         ConfidenceFilter[] filters = new ConfidenceFilter[1];
+         filters[0] = new ConfidenceFilter();
+         filters[0].MinimumConfidence = GeocodeServices.Confidence.High;
+         GeocodeOptions geocodeOptions = new GeocodeOptions();
+         geocodeOptions.Filters = filters;
+         geocodeRequest.Options = geocodeOptions;
+         // Make the geocode request
+         GeocodeServiceClient geocodeService = new GeocodeServiceClient("BasicHttpBinding_IGeocodeService");
+         GeocodeResponse geocodeResponse = geocodeService.Geocode(geocodeRequest);
+
+         if (geocodeResponse.Results.Length > 0)
+             if (geocodeResponse.Results[0].Locations.Length > 0)
+                 return geocodeResponse.Results[0].Locations[0];
+         return null;
+     }
+
+     private string GetMapUri(double latitude, double longitude, int zoom, string mapStyle, int width, int height)
+     {
+         ImageryServices.Pushpin[] pins = new ImageryServices.Pushpin[1];
+         ImageryServices.Pushpin pushpin = new ImageryServices.Pushpin();
+         pushpin.Location = new ImageryServices.Location();
+         pushpin.Location.Latitude = latitude;
+         pushpin.Location.Longitude = longitude;
+         pushpin.IconStyle = "2";
+         pins[0] = pushpin;
+         MapUriRequest mapUriRequest = new MapUriRequest();
+         // Set credentials using a valid Bing Maps Key
+         mapUriRequest.Credentials = new ImageryServices.Credentials();
+         mapUriRequest.Credentials.ApplicationId = "7Xe5dWLJW6JIhH6jDYR7~6wrgqqAAstaYhxwKEyAB6g~AhB0MhPMBgrTWhG-cxBqbFxaJe92xk7oGVnJPfBckupM4wWTauJQIMkjs5Fs_Z5u";
+
+         // Set the location of the requested image
+         mapUriRequest.Pushpins = pins;
+         // Set the map style and zoom level
+         MapUriOptions mapUriOptions = new MapUriOptions();
+         //mapUriOptions.ZoomLevel = 17;
+         switch (mapStyle.ToUpper())
+         {
+             case "HYBRID":
+                 mapUriOptions.Style = ImageryServices.MapStyle.AerialWithLabels;
+                 break;
+             case "ROAD":
+                 mapUriOptions.Style = ImageryServices.MapStyle.Road;
+                 break;
+             case "AERIAL":
+                 mapUriOptions.Style = ImageryServices.MapStyle.Aerial;
+                 break;
+             default:
+                 mapUriOptions.Style = ImageryServices.MapStyle.Road;
+                 break;
+         }
+
+         mapUriOptions.ZoomLevel = 15;
+         // Set the size of the requested image to match the size of the image control
+         mapUriOptions.ImageSize = new ImageryServices.SizeOfint();
+         mapUriOptions.ImageSize.Height = height;
+         mapUriOptions.ImageSize.Width = width;
+         mapUriRequest.Options = mapUriOptions;
+
+         ImageryServiceClient imageryService = new ImageryServiceClient("BasicHttpBinding_IImageryService");
+         MapUriResponse mapUriResponse = imageryService.GetMapUri(mapUriRequest);
+
+         return mapUriResponse.Uri;
+     }
+
+     private string MapAddress(string address, int zoom, string mapStyle, int width, int height)
+     {
+         GeocodeServices.Location latlong = GeocodeAddress(address);
+          double latitude = latlong.Latitude;
+         double longitude = latlong.Longitude;
+         return GetMapUri(latitude, longitude, zoom, mapStyle, width, height);
+     }
+
 	}
 }

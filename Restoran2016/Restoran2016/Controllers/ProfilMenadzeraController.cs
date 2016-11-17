@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Restoran2016.Models;
 using System.Data.Entity;
+using Restoran2016.GeocodeServices;
+using Restoran2016.ImageryServices; 
 
 namespace Restoran2016.Controllers
 {
@@ -49,7 +51,7 @@ namespace Restoran2016.Controllers
                 {
                     prof.jelovnici.Add(db.JELOVNIKs.Where(z => z.ID_JELA == item).Single());
                 }
-
+                ViewBag.MapUrl = MapAddress(r.ADRESA_RESTORANA, 10000, "ROAD", 240, 320);
                 return View(prof);
             }
 
@@ -252,6 +254,87 @@ namespace Restoran2016.Controllers
             return View(rest);       
         }
 
+        private GeocodeServices.Location GeocodeAddress(string address)
+        {
+            GeocodeRequest geocodeRequest = new GeocodeRequest();
+            // Set the credentials using a valid Bing Maps Key
+            geocodeRequest.Credentials = new GeocodeServices.Credentials();
+            geocodeRequest.Credentials.ApplicationId = "7Xe5dWLJW6JIhH6jDYR7~6wrgqqAAstaYhxwKEyAB6g~AhB0MhPMBgrTWhG-cxBqbFxaJe92xk7oGVnJPfBckupM4wWTauJQIMkjs5Fs_Z5u";
+            // Set the full address query
+            geocodeRequest.Query = address;
+
+            // Set the options to only return high confidence results 
+            ConfidenceFilter[] filters = new ConfidenceFilter[1];
+            filters[0] = new ConfidenceFilter();
+            filters[0].MinimumConfidence = GeocodeServices.Confidence.High;
+            GeocodeOptions geocodeOptions = new GeocodeOptions();
+            geocodeOptions.Filters = filters;
+            geocodeRequest.Options = geocodeOptions;
+            // Make the geocode request
+            GeocodeServiceClient geocodeService = new GeocodeServiceClient("BasicHttpBinding_IGeocodeService");
+            GeocodeResponse geocodeResponse = geocodeService.Geocode(geocodeRequest);
+
+            if (geocodeResponse.Results.Length > 0)
+                if (geocodeResponse.Results[0].Locations.Length > 0)
+                    return geocodeResponse.Results[0].Locations[0];
+            return null;
+        }
+
+        private string GetMapUri(double latitude, double longitude, int zoom, string mapStyle, int width, int height)
+        {
+            ImageryServices.Pushpin[] pins = new ImageryServices.Pushpin[1];
+            ImageryServices.Pushpin pushpin = new ImageryServices.Pushpin();
+            pushpin.Location = new ImageryServices.Location();
+            pushpin.Location.Latitude = latitude;
+            pushpin.Location.Longitude = longitude;
+            pushpin.IconStyle = "2";
+            pins[0] = pushpin;
+            MapUriRequest mapUriRequest = new MapUriRequest();
+            // Set credentials using a valid Bing Maps Key
+            mapUriRequest.Credentials = new ImageryServices.Credentials();
+            mapUriRequest.Credentials.ApplicationId = "7Xe5dWLJW6JIhH6jDYR7~6wrgqqAAstaYhxwKEyAB6g~AhB0MhPMBgrTWhG-cxBqbFxaJe92xk7oGVnJPfBckupM4wWTauJQIMkjs5Fs_Z5u";
+
+            // Set the location of the requested image
+            mapUriRequest.Pushpins = pins;
+            // Set the map style and zoom level
+            MapUriOptions mapUriOptions = new MapUriOptions();
+            //mapUriOptions.ZoomLevel = 17;
+            switch (mapStyle.ToUpper())
+            {
+                case "HYBRID":
+                    mapUriOptions.Style = ImageryServices.MapStyle.AerialWithLabels;
+                    break;
+                case "ROAD":
+                    mapUriOptions.Style = ImageryServices.MapStyle.Road;
+                    break;
+                case "AERIAL":
+                    mapUriOptions.Style = ImageryServices.MapStyle.Aerial;
+                    break;
+                default:
+                    mapUriOptions.Style = ImageryServices.MapStyle.Road;
+                    break;
+            }
+
+            mapUriOptions.ZoomLevel = 15;
+            // Set the size of the requested image to match the size of the image control
+            mapUriOptions.ImageSize = new ImageryServices.SizeOfint();
+            mapUriOptions.ImageSize.Height = height;
+            mapUriOptions.ImageSize.Width = width;
+            mapUriRequest.Options = mapUriOptions;
+
+            ImageryServiceClient imageryService = new ImageryServiceClient("BasicHttpBinding_IImageryService");
+            MapUriResponse mapUriResponse = imageryService.GetMapUri(mapUriRequest);
+
+            return mapUriResponse.Uri;
+        }
+
+        private string MapAddress(string address, int zoom, string mapStyle, int width, int height)
+        {
+            GeocodeServices.Location latlong = GeocodeAddress(address);
+            double latitude = latlong.Latitude;
+            double longitude = latlong.Longitude;
+            return GetMapUri(latitude, longitude, zoom, mapStyle, width, height);
+        }
 
         
 	}
