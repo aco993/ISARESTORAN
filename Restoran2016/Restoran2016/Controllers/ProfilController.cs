@@ -81,23 +81,17 @@ namespace Restoran2016.Controllers
                 }
                 ViewBag.restorani = prof.restorani;
 
-                var posete = db.REZERVACIJAs.Where(x=>x.VREME_ODLASKA<System.DateTime.Now).Where(x => x.EMAIL_GOSTA == id).Select(x => x.ID).ToList();
-                prof.poseteRestoranima = new List<REZERVACIJA>();
+                //var posete = db.REZERVACIJAs.Where(x=>x.VREME_ODLASKA<System.DateTime.Now).Where(x => x.EMAIL_GOSTA == id).Select(x => x.ID).ToList();
+                var posete = from y in db.REZERVACIJAs
+                             join z in db.RESTORANs on y.ID_RESTORANA equals z.ID_RESTORANA 
+                             where y.EMAIL_GOSTA == id 
+                             select new ModelView.RezervisaniRestoran { ID=y.ID,ID_RESTORANA=y.ID_RESTORANA,ID_STOLA=y.ID_STOLA,DATUM=y.DATUM,OCENA=y.OCENA,NAZIV_RESTORANA=z.NAZIV_RESTORANA};
 
-                foreach (var item in posete)
-                {
-                    prof.poseteRestoranima.Add(db.REZERVACIJAs.Where(x=>x.ID==item).Single());
-                }
+                IEnumerable<Restoran2016.ModelView.RezervisaniRestoran> poseteLista = posete;
+                
+                var tuple = new Tuple<ModelView.Profil, IEnumerable<Restoran2016.ModelView.RezervisaniRestoran>>(prof, poseteLista);
 
-                var buduce = db.REZERVACIJAs.Where(x => x.VREME_ODLASKA > System.DateTime.Now).Where(x => x.EMAIL_GOSTA == id).Select(x => x.ID).ToList();
-                prof.buducePosete = new List<REZERVACIJA>();
-
-                foreach (var item in buduce)
-                {
-                    prof.buducePosete.Add(db.REZERVACIJAs.Where(x => x.ID == item).Single());
-                }
-
-                return View(prof);
+                return View(tuple);
             }
 
         }

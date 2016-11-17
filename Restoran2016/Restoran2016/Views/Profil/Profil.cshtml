@@ -1,4 +1,5 @@
-﻿@model Restoran2016.ModelView.Profil
+﻿@model Tuple<Restoran2016.ModelView.Profil, IEnumerable<Restoran2016.ModelView.RezervisaniRestoran>>
+
 
 @{
     ViewBag.Title = "Profil";
@@ -29,18 +30,18 @@
     <legend>Osnovni podaci</legend>
 
     <div class="display-label">
-        @Html.DisplayNameFor(model => model.Email):  @Html.DisplayFor(model => model.Email)
+        @Html.DisplayNameFor(model => model.Item1.Email):  @Html.DisplayFor(model => model.Item1.Email)
     </div>
 
     <div class="display-label">
-        @Html.DisplayNameFor(model => model.ime): @Html.DisplayFor(model => model.ime)
+        @Html.DisplayNameFor(model => model.Item1.ime): @Html.DisplayFor(model => model.Item1.ime)
     </div>
 
     <div class="display-label">
-        @Html.DisplayNameFor(model => model.prezime): @Html.DisplayFor(model => model.prezime)
+        @Html.DisplayNameFor(model => model.Item1.prezime): @Html.DisplayFor(model => model.Item1.prezime)
     </div>
 
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Email })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.Email })
 </fieldset> 
     </div>
     <div id="tabs-2">
@@ -60,7 +61,7 @@
                     <th></th>
                 </tr>
 
-                @foreach (var item in Model.prijatelji)
+                @foreach (var item in Model.Item1.prijatelji)
                 {
                     <tr>
                         <td>
@@ -82,7 +83,7 @@
 
             </table>
         </fieldset>
-
+        
         <fieldset>
             <legend>Zahtevi</legend>
 
@@ -98,7 +99,7 @@
                     <th></th>
                 </tr>
 
-                @foreach (var item in Model.zahtevi)
+                @foreach (var item in Model.Item1.zahtevi)
                 {
                     <tr>
                         <td>
@@ -137,7 +138,7 @@
                     <th></th>
                 </tr>
 
-                @foreach (var item in Model.neprijatelji)
+                @foreach (var item in Model.Item1.neprijatelji)
                 {
                     <tr>
                         <td>
@@ -175,7 +176,7 @@
                     <th></th>
                 </tr>
 
-                @foreach (var item in Model.restorani)
+                @foreach (var item in Model.Item1.restorani)
                 {
                     <tr>
                         <td>
@@ -216,14 +217,14 @@
                     <th></th>
                 </tr>
 
-                @foreach (var item in Model.poseteRestoranima)
-                {
+                @foreach (var item in Model.Item2) {
+                    if (@item.VREME_ODLASKA < System.DateTime.Now) {  
                     <tr>
-                        <td>                            
-                            @Html.DisplayFor(modelItem => item.ID_RESTORANA)
+                        <td>
+                            @item.NAZIV_RESTORANA
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DATUM)
+                            @item.DATUM
                         </td>
                         @if (item.OCENA <= 0)
                         {
@@ -243,64 +244,65 @@
 
                     </tr>
                 }
+                }
 
             </table>
 
-        </fieldset>       
-        
-            <fieldset>
-                <legend>Rezervacije</legend>
-                <table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Rezervacije</legend>
+            <table>
+                <tr>
+                    <th>
+                        Naziv
+                    </th>
+                    <th>
+                        Datum
+                    </th>
+                    <th>
+                        Od
+                    </th>
+                    <th>
+                        Do
+                    </th>
+                    <th>
+                        Broj Stola
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.Item2)
+                {
+                    if (@item.VREME_ODLASKA > System.DateTime.Now) {
                     <tr>
-                        <th>
-                            Naziv
-                        </th>
-                        <th>
-                            Datum
-                        </th>
-                        <th>
-                            Od
-                        </th>
-                        <th>
-                            Do
-                        </th>
-                        <th>
-                            Broj Stola
-                        </th>
-                        <th></th>
+                        <td>
+                            @item.NAZIV_RESTORANA
+                        </td>
+                        <td>
+                            @item.DATUM
+                        </td>
+
+                        <td>
+                            @item.VREME_DOLASKA
+                        </td>
+
+                        <td>
+                            @item.VREME_ODLASKA
+                        </td>
+
+                        <td>
+                            @item.ID_STOLA
+                        </td>
+
                     </tr>
-
-                    @foreach (var item in Model.buducePosete)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ID_RESTORANA)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DATUM)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.VREME_DOLASKA)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.VREME_ODLASKA)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.STO)
-                            </td>
-
-                        </tr>
-                    }
-
-                </table>
-            </fieldset>
-
-        
-       
+                }
+                }
+            </table>
+        </fieldset>
+ 
     </div>
+
 </div>
 <div id="tabid"></div>
 
