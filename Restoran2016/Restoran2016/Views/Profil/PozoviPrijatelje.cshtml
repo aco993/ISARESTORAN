@@ -1,0 +1,15 @@
+﻿@model Restoran2016.Models.PoziviPrijatelja
+@{
+    ViewBag.Title = "PozoviPrijatelje";
+}
+
+<h2>Pozovi Prijatelje</h2>
+
+@using (Html.BeginForm(@Model.SelektovaniPr))
+{
+    @Html.ListBoxFor(x => x.SelektovaniPr, Model.prijateljiGosta)
+
+    <br /> <input type="submit" value="Submit" title="submit" />
+    <div style="color: Red; font-weight: bold;">@ViewBag.Country</div>
+}
+

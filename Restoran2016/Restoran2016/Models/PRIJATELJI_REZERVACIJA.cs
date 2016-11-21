@@ -12,19 +12,14 @@ namespace Restoran2016.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PRIJATELJI
+    public partial class PRIJATELJI_REZERVACIJA
     {
-        public PRIJATELJI()
-        {
-            this.PRIJATELJI_REZERVACIJA = new HashSet<PRIJATELJI_REZERVACIJA>();
-        }
-    
         public string EMAIL_GOSTA1 { get; set; }
         public string EMAIL_GOSTA { get; set; }
-        public System.DateTime PRIJATELJI_OD { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> OCENA { get; set; }
     
-        public virtual GOST GOST { get; set; }
-        public virtual GOST GOST1 { get; set; }
-        public virtual ICollection<PRIJATELJI_REZERVACIJA> PRIJATELJI_REZERVACIJA { get; set; }
+        public virtual PRIJATELJI PRIJATELJI { get; set; }
+        public virtual REZERVACIJA REZERVACIJA { get; set; }
     }
 }

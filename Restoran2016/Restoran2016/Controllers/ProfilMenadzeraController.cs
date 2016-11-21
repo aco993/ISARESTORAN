@@ -12,7 +12,7 @@ namespace Restoran2016.Controllers
 {
     public class ProfilMenadzeraController : Controller
     {
-        private acoEntities1 db = new acoEntities1();
+        private aco4Entities db = new aco4Entities();
         //
         // GET: /ProfilMenadzera/
         public ActionResult Index()
@@ -39,6 +39,7 @@ namespace Restoran2016.Controllers
                 prof.OpisRestorana = g.RESTORAN.OPIS_RESTPRANA;
                 prof.IDRestorana = g.ID_RESTORANA;
                 prof.brojRedova = (int)r.BROJ_KOLONA;
+               
                 prof.ASD = g.ASD;
                 prof.ID_Menadzera = g.IDMENADZERA;
                 int broj2 = prof.brojRedova;
@@ -116,6 +117,22 @@ namespace Restoran2016.Controllers
                 return RedirectToAction("ProfilMenadzera");
             }
             return View(jel);
+        }
+        [HttpGet]
+        public ActionResult UbaciStolove(string idRest)
+        {
+            TempData["idRest"] = idRest;
+            RESTORAN rest = db.RESTORANs.Find(idRest);
+            return View(rest);
+        }
+
+        [HttpPost]
+        public ActionResult UbaciStolove(RESTORAN rest)
+        {
+          
+            db.unosStolova(rest.BROJ_STOLOVA, rest.ID_RESTORANA);
+            db.SaveChanges();
+            return RedirectToAction("ProfilMenadzera");
         }
 
         [HttpGet]

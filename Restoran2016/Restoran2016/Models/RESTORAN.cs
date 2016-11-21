@@ -12,7 +12,6 @@ namespace Restoran2016.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
     public partial class RESTORAN
     {
         public RESTORAN()
@@ -33,6 +32,7 @@ namespace Restoran2016.Models
         public Nullable<float> LATITUDA { get; set; }
         public Nullable<float> LONGITUDA { get; set; }
         public Nullable<int> BROJ_KOLONA { get; set; }
+        public Nullable<int> BROJ_STOLOVA { get; set; }
     
         public virtual ICollection<JELOVNIK> JELOVNIKs { get; set; }
         public virtual ICollection<MENADZER> MENADZERs { get; set; }

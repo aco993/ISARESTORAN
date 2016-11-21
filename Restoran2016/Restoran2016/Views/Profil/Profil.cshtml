@@ -224,7 +224,7 @@
                             @item.NAZIV_RESTORANA
                         </td>
                         <td>
-                            @item.DATUM
+                            @item.DATUM.ToString("dd MMM yyyy")
                         </td>
                         @if (item.OCENA <= 0)
                         {
@@ -280,15 +280,15 @@
                             @item.NAZIV_RESTORANA
                         </td>
                         <td>
-                            @item.DATUM
+                            @item.DATUM.ToString("dd MMM yyyy")
                         </td>
 
                         <td>
-                            @item.VREME_DOLASKA
+                            @item.VREME_DOLASKA.ToString("HH mm")
                         </td>
 
                         <td>
-                            @item.VREME_ODLASKA
+                            @item.VREME_ODLASKA.ToString("HH mm")
                         </td>
 
                         <td>

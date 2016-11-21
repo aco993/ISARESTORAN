@@ -11,7 +11,7 @@ namespace Restoran2016.Controllers
 {
     public class AccountController : Controller
     {
-        private acoEntities1 db = new acoEntities1();
+        private aco4Entities db = new aco4Entities();
         //
         // GET: /Account/
         public ActionResult Index()

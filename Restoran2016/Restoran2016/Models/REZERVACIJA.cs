@@ -12,19 +12,31 @@ namespace Restoran2016.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    
     public partial class REZERVACIJA
     {
+        public REZERVACIJA()
+        {
+            this.PRIJATELJI_REZERVACIJA = new HashSet<PRIJATELJI_REZERVACIJA>();
+        }
+    
         public int ID { get; set; }
         public string EMAIL_GOSTA { get; set; }
         public string ID_RESTORANA { get; set; }
         public string ID_STOLA { get; set; }
         public int OCENA { get; set; }
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH/mm/ss}", ApplyFormatInEditMode = true)]
         public System.DateTime VREME_DOLASKA { get; set; }
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH/mm/ss}", ApplyFormatInEditMode = true)]
         public System.DateTime VREME_ODLASKA { get; set; }
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime DATUM { get; set; }
     
         public virtual GOST GOST { get; set; }
+        public virtual ICollection<PRIJATELJI_REZERVACIJA> PRIJATELJI_REZERVACIJA { get; set; }
         public virtual STO STO { get; set; }
     }
 }

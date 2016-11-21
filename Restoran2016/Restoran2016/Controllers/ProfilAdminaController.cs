@@ -12,7 +12,7 @@ namespace Restoran2016.Controllers
     {
         //
         // GET: /ProfilAdmina/
-        private acoEntities1 db = new acoEntities1();
+        private aco4Entities db = new aco4Entities();
        
         public ActionResult ProfilAdmina()
         {

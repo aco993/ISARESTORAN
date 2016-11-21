@@ -1,0 +1,727 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="aco4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ADMIN">
+          <Key>
+            <PropertyRef Name="ID_ADMIN" />
+          </Key>
+          <Property Name="ID_ADMIN" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="PASS_ADMINA" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GOST">
+          <Key>
+            <PropertyRef Name="EMAIL_GOSTA" />
+          </Key>
+          <Property Name="EMAIL_GOSTA" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="PASS_GOSTA" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="IME_GOSTA" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="PREZIME_GOSTA" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="POL_GOSTA" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="MAIL_POTVRA" Type="bit" Nullable="false" />
+          <Property Name="CPASS_GOSTA" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="SLIKA" Type="image" />
+        </EntityType>
+        <EntityType Name="JELOVNIK">
+          <Key>
+            <PropertyRef Name="ID_RESTORANA" />
+            <PropertyRef Name="ID_JELA" />
+          </Key>
+          <Property Name="ID_RESTORANA" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID_JELA" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="NAZIV_JELA" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="OPIS" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="CENA_JELA" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MENADZER">
+          <Key>
+            <PropertyRef Name="IDMENADZERA" />
+          </Key>
+          <Property Name="IDMENADZERA" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="ID_RESTORANA" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ASD" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRIJATELJI">
+          <Key>
+            <PropertyRef Name="EMAIL_GOSTA1" />
+            <PropertyRef Name="EMAIL_GOSTA" />
+          </Key>
+          <Property Name="EMAIL_GOSTA1" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="EMAIL_GOSTA" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="PRIJATELJI_OD" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRIJATELJI_REZERVACIJA">
+          <Key>
+            <PropertyRef Name="EMAIL_GOSTA1" />
+            <PropertyRef Name="EMAIL_GOSTA" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="EMAIL_GOSTA1" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="EMAIL_GOSTA" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="OCENA" Type="int" />
+        </EntityType>
+        <EntityType Name="RESTORAN">
+          <Key>
+            <PropertyRef Name="ID_RESTORANA" />
+          </Key>
+          <Property Name="ID_RESTORANA" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="NAZIV_RESTORANA" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="ADRESA_RESTORANA" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="MAIL_RESTORANA" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="TELEFON_RESTORANA" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="PROSECNA_OCENA" Type="real" Nullable="false" />
+          <Property Name="OPIS_RESTPRANA" Type="varchar" MaxLength="1024" Nullable="false" />
+          <Property Name="LATITUDA" Type="real" />
+          <Property Name="LONGITUDA" Type="real" />
+          <Property Name="BROJ_KOLONA" Type="int" />
+          <Property Name="BROJ_STOLOVA" Type="int" />
+        </EntityType>
+        <EntityType Name="REZERVACIJA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMAIL_GOSTA" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="ID_RESTORANA" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID_STOLA" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="OCENA" Type="int" Nullable="false" />
+          <Property Name="VREME_DOLASKA" Type="datetime" Nullable="false" />
+          <Property Name="VREME_ODLASKA" Type="datetime" Nullable="false" />
+          <Property Name="DATUM" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STO">
+          <Key>
+            <PropertyRef Name="ID_RESTORANA" />
+            <PropertyRef Name="ID_STOLA" />
+          </Key>
+          <Property Name="ID_RESTORANA" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID_STOLA" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="BR_STOLICA" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_JELOVNIK_RELATIONS_RESTORAN">
+          <End Role="RESTORAN" Type="Self.RESTORAN" Multiplicity="1" />
+          <End Role="JELOVNIK" Type="Self.JELOVNIK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESTORAN">
+              <PropertyRef Name="ID_RESTORANA" />
+            </Principal>
+            <Dependent Role="JELOVNIK">
+              <PropertyRef Name="ID_RESTORANA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENADZER_RELATIONS_RESTORAN">
+          <End Role="RESTORAN" Type="Self.RESTORAN" Multiplicity="1" />
+          <End Role="MENADZER" Type="Self.MENADZER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESTORAN">
+              <PropertyRef Name="ID_RESTORANA" />
+            </Principal>
+            <Dependent Role="MENADZER">
+              <PropertyRef Name="ID_RESTORANA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJATEL_RELATIONS_GOST">
+          <End Role="GOST" Type="Self.GOST" Multiplicity="1" />
+          <End Role="PRIJATELJI" Type="Self.PRIJATELJI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GOST">
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Principal>
+            <Dependent Role="PRIJATELJI">
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJATEL_RELATIONS_GOST2">
+          <End Role="GOST" Type="Self.GOST" Multiplicity="1" />
+          <End Role="PRIJATELJI" Type="Self.PRIJATELJI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GOST">
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Principal>
+            <Dependent Role="PRIJATELJI">
+              <PropertyRef Name="EMAIL_GOSTA1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJATEL_REZERVACIJA_RELATIONS_PRIJATELJI">
+          <End Role="PRIJATELJI" Type="Self.PRIJATELJI" Multiplicity="1" />
+          <End Role="PRIJATELJI_REZERVACIJA" Type="Self.PRIJATELJI_REZERVACIJA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRIJATELJI">
+              <PropertyRef Name="EMAIL_GOSTA1" />
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Principal>
+            <Dependent Role="PRIJATELJI_REZERVACIJA">
+              <PropertyRef Name="EMAIL_GOSTA1" />
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJATEL_REZERVACIJA_RELATIONS_REZERVACIJA">
+          <End Role="REZERVACIJA" Type="Self.REZERVACIJA" Multiplicity="1" />
+          <End Role="PRIJATELJI_REZERVACIJA" Type="Self.PRIJATELJI_REZERVACIJA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REZERVACIJA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRIJATELJI_REZERVACIJA">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REZERVAC_RELATIONS_GOST">
+          <End Role="GOST" Type="Self.GOST" Multiplicity="1" />
+          <End Role="REZERVACIJA" Type="Self.REZERVACIJA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GOST">
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Principal>
+            <Dependent Role="REZERVACIJA">
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REZERVAC_RELATIONS_STO">
+          <End Role="STO" Type="Self.STO" Multiplicity="1" />
+          <End Role="REZERVACIJA" Type="Self.REZERVACIJA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STO">
+              <PropertyRef Name="ID_RESTORANA" />
+              <PropertyRef Name="ID_STOLA" />
+            </Principal>
+            <Dependent Role="REZERVACIJA">
+              <PropertyRef Name="ID_RESTORANA" />
+              <PropertyRef Name="ID_STOLA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STO_RELATIONS_RESTORAN">
+          <End Role="RESTORAN" Type="Self.RESTORAN" Multiplicity="1" />
+          <End Role="STO" Type="Self.STO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESTORAN">
+              <PropertyRef Name="ID_RESTORANA" />
+            </Principal>
+            <Dependent Role="STO">
+              <PropertyRef Name="ID_RESTORANA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="napuni_rezervacije" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="broj" Type="int" Mode="In" />
+          <Parameter Name="idGosta" Type="nvarchar" Mode="In" />
+          <Parameter Name="idRestorana" Type="nvarchar" Mode="In" />
+          <Parameter Name="datum" Type="datetime" Mode="In" />
+          <Parameter Name="pocetak" Type="datetime" Mode="In" />
+          <Parameter Name="kraj" Type="datetime" Mode="In" />
+          <Parameter Name="sto" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Slobodni_Stolovi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DATUM" Type="datetime" Mode="In" />
+          <Parameter Name="POCETNO_VREME" Type="datetime" Mode="In" />
+          <Parameter Name="KRAJNJE_VREME" Type="datetime" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="id_stola" Type="varchar" MaxLength="10" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="unosStolova" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="broj_stolova" Type="int" Mode="In" />
+          <Parameter Name="id_restorana" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="aco4ModelStoreContainer">
+          <EntitySet Name="ADMIN" EntityType="Self.ADMIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GOST" EntityType="Self.GOST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JELOVNIK" EntityType="Self.JELOVNIK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MENADZER" EntityType="Self.MENADZER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRIJATELJI" EntityType="Self.PRIJATELJI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRIJATELJI_REZERVACIJA" EntityType="Self.PRIJATELJI_REZERVACIJA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RESTORAN" EntityType="Self.RESTORAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REZERVACIJA" EntityType="Self.REZERVACIJA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STO" EntityType="Self.STO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_JELOVNIK_RELATIONS_RESTORAN" Association="Self.FK_JELOVNIK_RELATIONS_RESTORAN">
+            <End Role="RESTORAN" EntitySet="RESTORAN" />
+            <End Role="JELOVNIK" EntitySet="JELOVNIK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENADZER_RELATIONS_RESTORAN" Association="Self.FK_MENADZER_RELATIONS_RESTORAN">
+            <End Role="RESTORAN" EntitySet="RESTORAN" />
+            <End Role="MENADZER" EntitySet="MENADZER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJATEL_RELATIONS_GOST" Association="Self.FK_PRIJATEL_RELATIONS_GOST">
+            <End Role="GOST" EntitySet="GOST" />
+            <End Role="PRIJATELJI" EntitySet="PRIJATELJI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJATEL_RELATIONS_GOST2" Association="Self.FK_PRIJATEL_RELATIONS_GOST2">
+            <End Role="GOST" EntitySet="GOST" />
+            <End Role="PRIJATELJI" EntitySet="PRIJATELJI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJATEL_REZERVACIJA_RELATIONS_PRIJATELJI" Association="Self.FK_PRIJATEL_REZERVACIJA_RELATIONS_PRIJATELJI">
+            <End Role="PRIJATELJI" EntitySet="PRIJATELJI" />
+            <End Role="PRIJATELJI_REZERVACIJA" EntitySet="PRIJATELJI_REZERVACIJA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJATEL_REZERVACIJA_RELATIONS_REZERVACIJA" Association="Self.FK_PRIJATEL_REZERVACIJA_RELATIONS_REZERVACIJA">
+            <End Role="REZERVACIJA" EntitySet="REZERVACIJA" />
+            <End Role="PRIJATELJI_REZERVACIJA" EntitySet="PRIJATELJI_REZERVACIJA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REZERVAC_RELATIONS_GOST" Association="Self.FK_REZERVAC_RELATIONS_GOST">
+            <End Role="GOST" EntitySet="GOST" />
+            <End Role="REZERVACIJA" EntitySet="REZERVACIJA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REZERVAC_RELATIONS_STO" Association="Self.FK_REZERVAC_RELATIONS_STO">
+            <End Role="STO" EntitySet="STO" />
+            <End Role="REZERVACIJA" EntitySet="REZERVACIJA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STO_RELATIONS_RESTORAN" Association="Self.FK_STO_RELATIONS_RESTORAN">
+            <End Role="RESTORAN" EntitySet="RESTORAN" />
+            <End Role="STO" EntitySet="STO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="aco4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="Slobodni_Stolovi_Result">
+          <Property Name="id_stola" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="ADMIN">
+          <Key>
+            <PropertyRef Name="ID_ADMIN" />
+          </Key>
+          <Property Name="ID_ADMIN" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASS_ADMINA" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GOST">
+          <Key>
+            <PropertyRef Name="EMAIL_GOSTA" />
+          </Key>
+          <Property Name="EMAIL_GOSTA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASS_GOSTA" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IME_GOSTA" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PREZIME_GOSTA" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="POL_GOSTA" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MAIL_POTVRA" Type="Boolean" Nullable="false" />
+          <Property Name="CPASS_GOSTA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SLIKA" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="PRIJATELJIs" Relationship="Self.FK_PRIJATEL_RELATIONS_GOST" FromRole="GOST" ToRole="PRIJATELJI" />
+          <NavigationProperty Name="PRIJATELJIs1" Relationship="Self.FK_PRIJATEL_RELATIONS_GOST2" FromRole="GOST" ToRole="PRIJATELJI" />
+          <NavigationProperty Name="REZERVACIJAs" Relationship="Self.FK_REZERVAC_RELATIONS_GOST" FromRole="GOST" ToRole="REZERVACIJA" />
+        </EntityType>
+        <EntityType Name="JELOVNIK">
+          <Key>
+            <PropertyRef Name="ID_RESTORANA" />
+            <PropertyRef Name="ID_JELA" />
+          </Key>
+          <Property Name="ID_RESTORANA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_JELA" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAZIV_JELA" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OPIS" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CENA_JELA" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <NavigationProperty Name="RESTORAN" Relationship="Self.FK_JELOVNIK_RELATIONS_RESTORAN" FromRole="JELOVNIK" ToRole="RESTORAN" />
+        </EntityType>
+        <EntityType Name="MENADZER">
+          <Key>
+            <PropertyRef Name="IDMENADZERA" />
+          </Key>
+          <Property Name="IDMENADZERA" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_RESTORANA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ASD" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RESTORAN" Relationship="Self.FK_MENADZER_RELATIONS_RESTORAN" FromRole="MENADZER" ToRole="RESTORAN" />
+        </EntityType>
+        <EntityType Name="PRIJATELJI">
+          <Key>
+            <PropertyRef Name="EMAIL_GOSTA1" />
+            <PropertyRef Name="EMAIL_GOSTA" />
+          </Key>
+          <Property Name="EMAIL_GOSTA1" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL_GOSTA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRIJATELJI_OD" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="GOST" Relationship="Self.FK_PRIJATEL_RELATIONS_GOST" FromRole="PRIJATELJI" ToRole="GOST" />
+          <NavigationProperty Name="GOST1" Relationship="Self.FK_PRIJATEL_RELATIONS_GOST2" FromRole="PRIJATELJI" ToRole="GOST" />
+          <NavigationProperty Name="PRIJATELJI_REZERVACIJA" Relationship="Self.FK_PRIJATEL_REZERVACIJA_RELATIONS_PRIJATELJI" FromRole="PRIJATELJI" ToRole="PRIJATELJI_REZERVACIJA" />
+        </EntityType>
+        <EntityType Name="PRIJATELJI_REZERVACIJA">
+          <Key>
+            <PropertyRef Name="EMAIL_GOSTA1" />
+            <PropertyRef Name="EMAIL_GOSTA" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="EMAIL_GOSTA1" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL_GOSTA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="OCENA" Type="Int32" />
+          <NavigationProperty Name="PRIJATELJI" Relationship="Self.FK_PRIJATEL_REZERVACIJA_RELATIONS_PRIJATELJI" FromRole="PRIJATELJI_REZERVACIJA" ToRole="PRIJATELJI" />
+          <NavigationProperty Name="REZERVACIJA" Relationship="Self.FK_PRIJATEL_REZERVACIJA_RELATIONS_REZERVACIJA" FromRole="PRIJATELJI_REZERVACIJA" ToRole="REZERVACIJA" />
+        </EntityType>
+        <EntityType Name="RESTORAN">
+          <Key>
+            <PropertyRef Name="ID_RESTORANA" />
+          </Key>
+          <Property Name="ID_RESTORANA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAZIV_RESTORANA" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ADRESA_RESTORANA" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MAIL_RESTORANA" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TELEFON_RESTORANA" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PROSECNA_OCENA" Type="Single" Nullable="false" />
+          <Property Name="OPIS_RESTPRANA" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LATITUDA" Type="Single" />
+          <Property Name="LONGITUDA" Type="Single" />
+          <Property Name="BROJ_KOLONA" Type="Int32" />
+          <NavigationProperty Name="JELOVNIKs" Relationship="Self.FK_JELOVNIK_RELATIONS_RESTORAN" FromRole="RESTORAN" ToRole="JELOVNIK" />
+          <NavigationProperty Name="MENADZERs" Relationship="Self.FK_MENADZER_RELATIONS_RESTORAN" FromRole="RESTORAN" ToRole="MENADZER" />
+          <NavigationProperty Name="STOes" Relationship="Self.FK_STO_RELATIONS_RESTORAN" FromRole="RESTORAN" ToRole="STO" />
+          <Property Name="BROJ_STOLOVA" Type="Int32" />
+        </EntityType>
+        <EntityType Name="REZERVACIJA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMAIL_GOSTA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_RESTORANA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_STOLA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OCENA" Type="Int32" Nullable="false" />
+          <Property Name="VREME_DOLASKA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VREME_ODLASKA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DATUM" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="GOST" Relationship="Self.FK_REZERVAC_RELATIONS_GOST" FromRole="REZERVACIJA" ToRole="GOST" />
+          <NavigationProperty Name="PRIJATELJI_REZERVACIJA" Relationship="Self.FK_PRIJATEL_REZERVACIJA_RELATIONS_REZERVACIJA" FromRole="REZERVACIJA" ToRole="PRIJATELJI_REZERVACIJA" />
+          <NavigationProperty Name="STO" Relationship="Self.FK_REZERVAC_RELATIONS_STO" FromRole="REZERVACIJA" ToRole="STO" />
+        </EntityType>
+        <EntityType Name="STO">
+          <Key>
+            <PropertyRef Name="ID_RESTORANA" />
+            <PropertyRef Name="ID_STOLA" />
+          </Key>
+          <Property Name="ID_RESTORANA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_STOLA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BR_STOLICA" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RESTORAN" Relationship="Self.FK_STO_RELATIONS_RESTORAN" FromRole="STO" ToRole="RESTORAN" />
+          <NavigationProperty Name="REZERVACIJAs" Relationship="Self.FK_REZERVAC_RELATIONS_STO" FromRole="STO" ToRole="REZERVACIJA" />
+        </EntityType>
+        <Association Name="FK_PRIJATEL_RELATIONS_GOST">
+          <End Role="GOST" Type="Self.GOST" Multiplicity="1" />
+          <End Role="PRIJATELJI" Type="Self.PRIJATELJI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GOST">
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Principal>
+            <Dependent Role="PRIJATELJI">
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJATEL_RELATIONS_GOST2">
+          <End Role="GOST" Type="Self.GOST" Multiplicity="1" />
+          <End Role="PRIJATELJI" Type="Self.PRIJATELJI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GOST">
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Principal>
+            <Dependent Role="PRIJATELJI">
+              <PropertyRef Name="EMAIL_GOSTA1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REZERVAC_RELATIONS_GOST">
+          <End Role="GOST" Type="Self.GOST" Multiplicity="1" />
+          <End Role="REZERVACIJA" Type="Self.REZERVACIJA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GOST">
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Principal>
+            <Dependent Role="REZERVACIJA">
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JELOVNIK_RELATIONS_RESTORAN">
+          <End Role="RESTORAN" Type="Self.RESTORAN" Multiplicity="1" />
+          <End Role="JELOVNIK" Type="Self.JELOVNIK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESTORAN">
+              <PropertyRef Name="ID_RESTORANA" />
+            </Principal>
+            <Dependent Role="JELOVNIK">
+              <PropertyRef Name="ID_RESTORANA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MENADZER_RELATIONS_RESTORAN">
+          <End Role="RESTORAN" Type="Self.RESTORAN" Multiplicity="1" />
+          <End Role="MENADZER" Type="Self.MENADZER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESTORAN">
+              <PropertyRef Name="ID_RESTORANA" />
+            </Principal>
+            <Dependent Role="MENADZER">
+              <PropertyRef Name="ID_RESTORANA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJATEL_REZERVACIJA_RELATIONS_PRIJATELJI">
+          <End Role="PRIJATELJI" Type="Self.PRIJATELJI" Multiplicity="1" />
+          <End Role="PRIJATELJI_REZERVACIJA" Type="Self.PRIJATELJI_REZERVACIJA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRIJATELJI">
+              <PropertyRef Name="EMAIL_GOSTA1" />
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Principal>
+            <Dependent Role="PRIJATELJI_REZERVACIJA">
+              <PropertyRef Name="EMAIL_GOSTA1" />
+              <PropertyRef Name="EMAIL_GOSTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJATEL_REZERVACIJA_RELATIONS_REZERVACIJA">
+          <End Role="REZERVACIJA" Type="Self.REZERVACIJA" Multiplicity="1" />
+          <End Role="PRIJATELJI_REZERVACIJA" Type="Self.PRIJATELJI_REZERVACIJA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REZERVACIJA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRIJATELJI_REZERVACIJA">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STO_RELATIONS_RESTORAN">
+          <End Role="RESTORAN" Type="Self.RESTORAN" Multiplicity="1" />
+          <End Role="STO" Type="Self.STO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESTORAN">
+              <PropertyRef Name="ID_RESTORANA" />
+            </Principal>
+            <Dependent Role="STO">
+              <PropertyRef Name="ID_RESTORANA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REZERVAC_RELATIONS_STO">
+          <End Role="STO" Type="Self.STO" Multiplicity="1" />
+          <End Role="REZERVACIJA" Type="Self.REZERVACIJA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STO">
+              <PropertyRef Name="ID_RESTORANA" />
+              <PropertyRef Name="ID_STOLA" />
+            </Principal>
+            <Dependent Role="REZERVACIJA">
+              <PropertyRef Name="ID_RESTORANA" />
+              <PropertyRef Name="ID_STOLA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="aco4Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ADMINs" EntityType="Self.ADMIN" />
+          <EntitySet Name="GOSTs" EntityType="Self.GOST" />
+          <EntitySet Name="JELOVNIKs" EntityType="Self.JELOVNIK" />
+          <EntitySet Name="MENADZERs" EntityType="Self.MENADZER" />
+          <EntitySet Name="PRIJATELJIs" EntityType="Self.PRIJATELJI" />
+          <EntitySet Name="PRIJATELJI_REZERVACIJA" EntityType="Self.PRIJATELJI_REZERVACIJA" />
+          <EntitySet Name="RESTORANs" EntityType="Self.RESTORAN" />
+          <EntitySet Name="REZERVACIJAs" EntityType="Self.REZERVACIJA" />
+          <EntitySet Name="STOes" EntityType="Self.STO" />
+          <AssociationSet Name="FK_PRIJATEL_RELATIONS_GOST" Association="Self.FK_PRIJATEL_RELATIONS_GOST">
+            <End Role="GOST" EntitySet="GOSTs" />
+            <End Role="PRIJATELJI" EntitySet="PRIJATELJIs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJATEL_RELATIONS_GOST2" Association="Self.FK_PRIJATEL_RELATIONS_GOST2">
+            <End Role="GOST" EntitySet="GOSTs" />
+            <End Role="PRIJATELJI" EntitySet="PRIJATELJIs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REZERVAC_RELATIONS_GOST" Association="Self.FK_REZERVAC_RELATIONS_GOST">
+            <End Role="GOST" EntitySet="GOSTs" />
+            <End Role="REZERVACIJA" EntitySet="REZERVACIJAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JELOVNIK_RELATIONS_RESTORAN" Association="Self.FK_JELOVNIK_RELATIONS_RESTORAN">
+            <End Role="RESTORAN" EntitySet="RESTORANs" />
+            <End Role="JELOVNIK" EntitySet="JELOVNIKs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MENADZER_RELATIONS_RESTORAN" Association="Self.FK_MENADZER_RELATIONS_RESTORAN">
+            <End Role="RESTORAN" EntitySet="RESTORANs" />
+            <End Role="MENADZER" EntitySet="MENADZERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJATEL_REZERVACIJA_RELATIONS_PRIJATELJI" Association="Self.FK_PRIJATEL_REZERVACIJA_RELATIONS_PRIJATELJI">
+            <End Role="PRIJATELJI" EntitySet="PRIJATELJIs" />
+            <End Role="PRIJATELJI_REZERVACIJA" EntitySet="PRIJATELJI_REZERVACIJA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJATEL_REZERVACIJA_RELATIONS_REZERVACIJA" Association="Self.FK_PRIJATEL_REZERVACIJA_RELATIONS_REZERVACIJA">
+            <End Role="REZERVACIJA" EntitySet="REZERVACIJAs" />
+            <End Role="PRIJATELJI_REZERVACIJA" EntitySet="PRIJATELJI_REZERVACIJA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STO_RELATIONS_RESTORAN" Association="Self.FK_STO_RELATIONS_RESTORAN">
+            <End Role="RESTORAN" EntitySet="RESTORANs" />
+            <End Role="STO" EntitySet="STOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REZERVAC_RELATIONS_STO" Association="Self.FK_REZERVAC_RELATIONS_STO">
+            <End Role="STO" EntitySet="STOes" />
+            <End Role="REZERVACIJA" EntitySet="REZERVACIJAs" />
+          </AssociationSet>
+          <FunctionImport Name="Slobodni_Stolovi" ReturnType="Collection(aco4Model.Slobodni_Stolovi_Result)" IsComposable="true">
+            <Parameter Name="DATUM" Mode="In" Type="DateTime" />
+            <Parameter Name="POCETNO_VREME" Mode="In" Type="DateTime" />
+            <Parameter Name="KRAJNJE_VREME" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="napuni_rezervacije">
+            <Parameter Name="broj" Mode="In" Type="Int32" />
+            <Parameter Name="idGosta" Mode="In" Type="String" />
+            <Parameter Name="idRestorana" Mode="In" Type="String" />
+            <Parameter Name="datum" Mode="In" Type="DateTime" />
+            <Parameter Name="pocetak" Mode="In" Type="DateTime" />
+            <Parameter Name="kraj" Mode="In" Type="DateTime" />
+            <Parameter Name="sto" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="unosStolova">
+            <Parameter Name="broj_stolova" Mode="In" Type="Int32" />
+            <Parameter Name="id_restorana" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="aco4ModelStoreContainer" CdmEntityContainer="aco4Entities">
+          <EntitySetMapping Name="ADMINs">
+            <EntityTypeMapping TypeName="aco4Model.ADMIN">
+              <MappingFragment StoreEntitySet="ADMIN">
+                <ScalarProperty Name="ID_ADMIN" ColumnName="ID_ADMIN" />
+                <ScalarProperty Name="PASS_ADMINA" ColumnName="PASS_ADMINA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GOSTs">
+            <EntityTypeMapping TypeName="aco4Model.GOST">
+              <MappingFragment StoreEntitySet="GOST">
+                <ScalarProperty Name="EMAIL_GOSTA" ColumnName="EMAIL_GOSTA" />
+                <ScalarProperty Name="PASS_GOSTA" ColumnName="PASS_GOSTA" />
+                <ScalarProperty Name="IME_GOSTA" ColumnName="IME_GOSTA" />
+                <ScalarProperty Name="PREZIME_GOSTA" ColumnName="PREZIME_GOSTA" />
+                <ScalarProperty Name="POL_GOSTA" ColumnName="POL_GOSTA" />
+                <ScalarProperty Name="MAIL_POTVRA" ColumnName="MAIL_POTVRA" />
+                <ScalarProperty Name="CPASS_GOSTA" ColumnName="CPASS_GOSTA" />
+                <ScalarProperty Name="SLIKA" ColumnName="SLIKA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JELOVNIKs">
+            <EntityTypeMapping TypeName="aco4Model.JELOVNIK">
+              <MappingFragment StoreEntitySet="JELOVNIK">
+                <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
+                <ScalarProperty Name="ID_JELA" ColumnName="ID_JELA" />
+                <ScalarProperty Name="NAZIV_JELA" ColumnName="NAZIV_JELA" />
+                <ScalarProperty Name="OPIS" ColumnName="OPIS" />
+                <ScalarProperty Name="CENA_JELA" ColumnName="CENA_JELA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MENADZERs">
+            <EntityTypeMapping TypeName="aco4Model.MENADZER">
+              <MappingFragment StoreEntitySet="MENADZER">
+                <ScalarProperty Name="IDMENADZERA" ColumnName="IDMENADZERA" />
+                <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
+                <ScalarProperty Name="ASD" ColumnName="ASD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRIJATELJIs">
+            <EntityTypeMapping TypeName="aco4Model.PRIJATELJI">
+              <MappingFragment StoreEntitySet="PRIJATELJI">
+                <ScalarProperty Name="EMAIL_GOSTA1" ColumnName="EMAIL_GOSTA1" />
+                <ScalarProperty Name="EMAIL_GOSTA" ColumnName="EMAIL_GOSTA" />
+                <ScalarProperty Name="PRIJATELJI_OD" ColumnName="PRIJATELJI_OD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRIJATELJI_REZERVACIJA">
+            <EntityTypeMapping TypeName="aco4Model.PRIJATELJI_REZERVACIJA">
+              <MappingFragment StoreEntitySet="PRIJATELJI_REZERVACIJA">
+                <ScalarProperty Name="EMAIL_GOSTA1" ColumnName="EMAIL_GOSTA1" />
+                <ScalarProperty Name="EMAIL_GOSTA" ColumnName="EMAIL_GOSTA" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OCENA" ColumnName="OCENA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RESTORANs">
+            <EntityTypeMapping TypeName="aco4Model.RESTORAN">
+              <MappingFragment StoreEntitySet="RESTORAN">
+                <ScalarProperty Name="BROJ_STOLOVA" ColumnName="BROJ_STOLOVA" />
+                <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
+                <ScalarProperty Name="NAZIV_RESTORANA" ColumnName="NAZIV_RESTORANA" />
+                <ScalarProperty Name="ADRESA_RESTORANA" ColumnName="ADRESA_RESTORANA" />
+                <ScalarProperty Name="MAIL_RESTORANA" ColumnName="MAIL_RESTORANA" />
+                <ScalarProperty Name="TELEFON_RESTORANA" ColumnName="TELEFON_RESTORANA" />
+                <ScalarProperty Name="PROSECNA_OCENA" ColumnName="PROSECNA_OCENA" />
+                <ScalarProperty Name="OPIS_RESTPRANA" ColumnName="OPIS_RESTPRANA" />
+                <ScalarProperty Name="LATITUDA" ColumnName="LATITUDA" />
+                <ScalarProperty Name="LONGITUDA" ColumnName="LONGITUDA" />
+                <ScalarProperty Name="BROJ_KOLONA" ColumnName="BROJ_KOLONA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REZERVACIJAs">
+            <EntityTypeMapping TypeName="aco4Model.REZERVACIJA">
+              <MappingFragment StoreEntitySet="REZERVACIJA">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMAIL_GOSTA" ColumnName="EMAIL_GOSTA" />
+                <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
+                <ScalarProperty Name="ID_STOLA" ColumnName="ID_STOLA" />
+                <ScalarProperty Name="OCENA" ColumnName="OCENA" />
+                <ScalarProperty Name="VREME_DOLASKA" ColumnName="VREME_DOLASKA" />
+                <ScalarProperty Name="VREME_ODLASKA" ColumnName="VREME_ODLASKA" />
+                <ScalarProperty Name="DATUM" ColumnName="DATUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STOes">
+            <EntityTypeMapping TypeName="aco4Model.STO">
+              <MappingFragment StoreEntitySet="STO">
+                <ScalarProperty Name="ID_RESTORANA" ColumnName="ID_RESTORANA" />
+                <ScalarProperty Name="ID_STOLA" ColumnName="ID_STOLA" />
+                <ScalarProperty Name="BR_STOLICA" ColumnName="BR_STOLICA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="aco4Model.Store.Slobodni_Stolovi" FunctionImportName="Slobodni_Stolovi">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="aco4Model.Slobodni_Stolovi_Result">
+                <ScalarProperty Name="id_stola" ColumnName="id_stola" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="napuni_rezervacije" FunctionName="aco4Model.Store.napuni_rezervacije" />
+          <FunctionImportMapping FunctionImportName="unosStolova" FunctionName="aco4Model.Store.unosStolova" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="beb87b381b574fd5be28b2f3edb100b9" Name="Diagram1">
+        <EntityTypeShape EntityType="aco4Model.ADMIN" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aco4Model.GOST" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aco4Model.JELOVNIK" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aco4Model.MENADZER" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aco4Model.PRIJATELJI" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="aco4Model.PRIJATELJI_REZERVACIJA" Width="1.5" PointX="7.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="aco4Model.RESTORAN" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aco4Model.REZERVACIJA" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aco4Model.STO" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <AssociationConnector Association="aco4Model.FK_PRIJATEL_RELATIONS_GOST" ManuallyRouted="false" />
+        <AssociationConnector Association="aco4Model.FK_PRIJATEL_RELATIONS_GOST2" ManuallyRouted="false" />
+        <AssociationConnector Association="aco4Model.FK_REZERVAC_RELATIONS_GOST" ManuallyRouted="false" />
+        <AssociationConnector Association="aco4Model.FK_JELOVNIK_RELATIONS_RESTORAN" ManuallyRouted="false" />
+        <AssociationConnector Association="aco4Model.FK_MENADZER_RELATIONS_RESTORAN" ManuallyRouted="false" />
+        <AssociationConnector Association="aco4Model.FK_PRIJATEL_REZERVACIJA_RELATIONS_PRIJATELJI" ManuallyRouted="false" />
+        <AssociationConnector Association="aco4Model.FK_PRIJATEL_REZERVACIJA_RELATIONS_REZERVACIJA" ManuallyRouted="false" />
+        <AssociationConnector Association="aco4Model.FK_STO_RELATIONS_RESTORAN" ManuallyRouted="false" />
+        <AssociationConnector Association="aco4Model.FK_REZERVAC_RELATIONS_STO" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
