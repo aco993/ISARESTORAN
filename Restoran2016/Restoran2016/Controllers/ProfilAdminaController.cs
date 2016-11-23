@@ -58,16 +58,16 @@ namespace Restoran2016.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateRestoran(RESTORAN restoran,string Name)
+        public ActionResult CreateRestoran(RESTORAN restoran)
         {
             if (ModelState.IsValid)
             {
-                string brM1=Name;
-                int brM=Int32.Parse(brM1);
+   
+                restoran.BROJ_KOLONA = 1;
                 db.RESTORANs.Add(restoran);
 
                 
-                for (int i = 1; i < brM+1; i++)
+                for (int i = 1; i <= restoran.BROJ_STOLOVA; i++)
                 {
                     STO sto = new STO();
                     sto.ID_STOLA = i.ToString();
@@ -78,8 +78,7 @@ namespace Restoran2016.Controllers
                     
                 
                 }
-                    // RedirectToAction("ProfilAdmina");
-                    //  Redirect(Request.Referrer.ToString()); 
+ 
                     db.SaveChanges();
                 return RedirectToAction("ProfilAdmina");
                 

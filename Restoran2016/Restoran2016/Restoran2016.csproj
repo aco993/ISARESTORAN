@@ -235,6 +235,7 @@
     <Compile Include="Models\STO.cs">
       <DependentUpon>Model4.tt</DependentUpon>
     </Compile>
+    <Compile Include="ModelView\PozivRestoran.cs" />
     <Compile Include="ModelView\Profil.cs" />
     <Compile Include="ModelView\ProfilAdmina.cs" />
     <Compile Include="ModelView\ProfilMenadzera.cs" />
@@ -488,6 +489,8 @@
     </Content>
     <Content Include="Views\ProfilMenadzera\UbaciStolove.cshtml" />
     <Content Include="Views\Profil\PozoviPrijatelje.cshtml" />
+    <Content Include="Views\ProfilMenadzera\PromeniKoordinate.cshtml" />
+    <Content Include="Views\Profil\PrihvatiPoziv.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

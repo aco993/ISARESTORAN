@@ -24,6 +24,7 @@
         @Html.DisplayNameFor(model => model.OpisRestorana): @Html.DisplayFor(model => model.OpisRestorana)
     </div>
     <div> @Html.ActionLink("Izmeni", "EditRestoran", new { id = Model.IDRestorana }) </div>
+    <div> @Html.ActionLink("Podesi koordinate", "PromeniKoordinate", new { id = Model.IDRestorana }) </div>
 </fieldset>
 
 
@@ -42,7 +43,7 @@ else {
                 if ((m * @ViewBag.BrojRedova + n) >= 10)
                 {
                     <td>
-                        <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default" disabled="disabled">@(m * @ViewBag.BrojRedova + n)</button>
+                        <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default" >@(m * @ViewBag.BrojRedova + n)</button>
                     </td>
                 }
                 else

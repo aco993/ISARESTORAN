@@ -38,6 +38,9 @@ namespace Restoran2016.Controllers
                 prof.NazivRestorana = g.RESTORAN.NAZIV_RESTORANA;
                 prof.OpisRestorana = g.RESTORAN.OPIS_RESTPRANA;
                 prof.IDRestorana = g.ID_RESTORANA;
+                if (r.BROJ_KOLONA == null)
+                    prof.brojRedova = 5;
+                else
                 prof.brojRedova = (int)r.BROJ_KOLONA;
                
                 prof.ASD = g.ASD;
@@ -46,13 +49,17 @@ namespace Restoran2016.Controllers
                 ViewBag.BrojRedova = broj2;
                 int broj = db.STOes.Where(x => x.ID_RESTORANA == g.ID_RESTORANA).Count();
                 ViewBag.BrojStolova = broj;
-                var j = db.JELOVNIKs.Select(z => z.ID_JELA).ToList();
+                var j = db.JELOVNIKs.Where(z=>z.ID_RESTORANA==r.ID_RESTORANA).Select(z => z.ID_JELA).ToList();
                 prof.jelovnici = new List<JELOVNIK>();
                 foreach (var item in j)
                 {
                     prof.jelovnici.Add(db.JELOVNIKs.Where(z => z.ID_JELA == item).Single());
                 }
-                ViewBag.MapUrl = MapAddress(r.ADRESA_RESTORANA, 10000, "ROAD", 240, 320);
+                if (r.LATITUDA == null || r.LONGITUDA == null)
+                    ViewBag.MapUrl = MapAddress(r.ADRESA_RESTORANA, 10000, "ROAD", 240, 320);
+                else {
+                    ViewBag.MapUrl = MapCoordinates((double)r.LATITUDA, (double)r.LONGITUDA, 10000, "ROAD", 240, 320);
+                }
                 return View(prof);
             }
 
@@ -112,12 +119,47 @@ namespace Restoran2016.Controllers
 
             if (ModelState.IsValid)
             {
+
                 db.Entry(jel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("ProfilMenadzera");
             }
             return View(jel);
         }
+        [HttpGet]
+        public ActionResult PromeniKoordinate(string id)
+        {
+            var idd = (string)Session["IDMenadzera"];
+
+            var g = db.MENADZERs.Where(x => x.IDMENADZERA == idd).SingleOrDefault();
+            String idrest = db.MENADZERs.Where(z => z.IDMENADZERA == idd).Select(z => z.ID_RESTORANA).SingleOrDefault().ToString();
+
+
+            RESTORAN jel = db.RESTORANs.Find(idrest);
+            if (jel == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(jel);
+           
+        }
+
+        [HttpPost]
+        public ActionResult PromeniKoordinate(RESTORAN rest)
+        {
+
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(rest).State = EntityState.Modified;
+                db.SaveChanges();
+                
+                return RedirectToAction("ProfilMenadzera");
+            }
+            return View(rest);
+        }
+
         [HttpGet]
         public ActionResult UbaciStolove(string idRest)
         {
@@ -348,11 +390,17 @@ namespace Restoran2016.Controllers
         private string MapAddress(string address, int zoom, string mapStyle, int width, int height)
         {
             GeocodeServices.Location latlong = GeocodeAddress(address);
+            if (latlong == null) { double latitude = 0; double longitude = 0; return GetMapUri(latitude, longitude, zoom, mapStyle, width, height); }
+            else { 
             double latitude = latlong.Latitude;
             double longitude = latlong.Longitude;
             return GetMapUri(latitude, longitude, zoom, mapStyle, width, height);
+            }
+                
         }
-
-        
+        private string MapCoordinates(double latitude, double longitude, int zoom, string mapStyle, int width, int height)
+        {
+            return GetMapUri(latitude, longitude, zoom, mapStyle, width, height);
+        }
 	}
 }

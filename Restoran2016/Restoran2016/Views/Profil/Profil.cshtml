@@ -1,4 +1,4 @@
-﻿@model Tuple<Restoran2016.ModelView.Profil, IEnumerable<Restoran2016.ModelView.RezervisaniRestoran>>
+﻿@model Tuple<Restoran2016.ModelView.Profil, IEnumerable<Restoran2016.ModelView.RezervisaniRestoran>,IEnumerable<Restoran2016.ModelView.PozivRestoran>>
 
 
 @{
@@ -185,9 +185,18 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.OPIS_RESTPRANA)
                         </td>
+@if (item.PROSECNA_OCENA <= 0)
+                        {
+    <td>
+        -
+    </td>
+                        }
+                        else
+                        {
                         <td>
                             @Html.DisplayFor(modelItem => item.PROSECNA_OCENA)
                         </td>
+}
                         <td>
                             @Html.ActionLink("Informacije", "InformacijeORestoranu", new { id = item.ID_RESTORANA })
                         </td>
@@ -245,7 +254,36 @@
                     </tr>
                 }
                 }
+                @foreach (var item in Model.Item3)
+                {
+                    if (@item.VREME_ODLASKA < System.DateTime.Now)
+                    {
+                        <tr>
+                            <td>
+                                @item.NAZIV_RESTORANA
+                            </td>
+                            <td>
+                                @item.DATUM.ToString("dd MMM yyyy")
+                            </td>
+                            @if (item.OCENA <= 0)
+                            {
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Oceni", "OceniRestoran", new { id = item.ID })
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OCENA)
+                                </td>
+                            }
 
+                        </tr>
+                    }
+                }
             </table>
 
         </fieldset>
@@ -296,11 +334,100 @@
                         </td>
 
                     </tr>
+                }                
+                }
+@foreach (var item in Model.Item3)
+                {
+                    if (@item.VREME_ODLASKA > System.DateTime.Now) {
+                        <tr>
+                            <td>
+                                @item.NAZIV_RESTORANA
+                            </td>
+                            <td>
+                                @item.DATUM.ToString("dd MMM yyyy")
+                            </td>
+
+                            <td>
+                                @item.VREME_DOLASKA.ToString("HH mm")
+                            </td>
+
+                            <td>
+                                @item.VREME_ODLASKA.ToString("HH mm")
+                            </td>
+
+                            <td>
+                                @item.ID_STOLA
+                            </td>
+
+                        </tr>
                 }
                 }
             </table>
         </fieldset>
  
+        <fieldset>
+            <legend>Pozivi</legend>
+            <table>
+                <tr>
+                    <th>
+                        Poziv od
+                    </th>
+                    <th>
+                        Restoran
+                    </th>
+                    <th>
+                        Datum
+                    </th>
+                    <th>
+                        Od
+                    </th>
+                    <th>
+                        Do
+                    </th>
+                    <th>
+                        Broj Stola
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.Item3)
+                {
+                    if (@item.OCENA == null) { 
+                        <tr>
+                            <td>
+                                @item.IME @item.PREZIME
+                            </td>
+                            <td>
+                                @item.NAZIV_RESTORANA
+                            </td>
+                            <td>
+                                @item.DATUM.ToString("dd MMM yyyy")
+                            </td>
+
+                            <td>
+                                @item.VREME_DOLASKA.ToString("HH mm")
+                            </td>
+
+                            <td>
+                                @item.VREME_ODLASKA.ToString("HH mm")
+                            </td>
+
+                            <td>
+                                @item.ID_STOLA
+                            </td>
+                            <td>
+                                @Html.ActionLink("Prihvati", "PrihvatiPoziv", new { id = item.ID, email1=item.EMAIL_GOSTA1, email=item.EMAIL_GOSTA })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Odbij", "OdbijPoziv", new { id = item.ID, email1 = item.EMAIL_GOSTA1, email = item.EMAIL_GOSTA })
+                            </td>
+                        </tr>
+                }
+                }
+            </table>
+        </fieldset>
+
+
     </div>
 
 </div>

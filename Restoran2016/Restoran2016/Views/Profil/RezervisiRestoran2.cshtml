@@ -23,7 +23,7 @@
                 if (ViewBag.listaDostupnih.Contains((m * @ViewBag.BrojRedova + n).ToString()))
                 { 
                 <td>
-                    <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default" >@(m * @ViewBag.BrojRedova + n)</button>
+                    <button id="@(m * @ViewBag.BrojRedova + n)" type="submit" class="btn btn-default" onclick="location.href='@Url.Action("RezervisiRestoran3", "Profil", new { id = (m * @ViewBag.BrojRedova + n)})'">@(m * @ViewBag.BrojRedova + n)</button>
                 </td> 
         }
                 else { 
@@ -62,7 +62,7 @@
     {
         if (ViewBag.listaDostupnih.Contains(n.ToString())) { 
         <td>
-            <button id="@n" type="submit" class="btn btn-default">@n</button>
+            <button id="@n" type="submit" class="btn btn-default" >@n</button>
         </td>
 }
 else

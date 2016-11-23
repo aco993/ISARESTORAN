@@ -84,8 +84,18 @@ namespace Restoran2016.Controllers
                              select new ModelView.RezervisaniRestoran { ID = y.ID, ID_RESTORANA = y.ID_RESTORANA, ID_STOLA = y.ID_STOLA, DATUM = y.DATUM, OCENA = y.OCENA, VREME_DOLASKA = y.VREME_DOLASKA, VREME_ODLASKA = y.VREME_ODLASKA,NAZIV_RESTORANA = z.NAZIV_RESTORANA };
 
                 IEnumerable<Restoran2016.ModelView.RezervisaniRestoran> poseteLista = posete;
+
+                var pozivi = from y in db.PRIJATELJI_REZERVACIJA
+                             join z in db.REZERVACIJAs on y.ID equals z.ID
+                             join x in db.RESTORANs on z.ID_RESTORANA equals x.ID_RESTORANA
+                             join w in db.GOSTs on y.EMAIL_GOSTA1 equals w.EMAIL_GOSTA
+                             
+                             where y.EMAIL_GOSTA == id
+                             select new ModelView.PozivRestoran {EMAIL_GOSTA=y.EMAIL_GOSTA,EMAIL_GOSTA1=y.EMAIL_GOSTA1,ID=z.ID,OCENA=y.OCENA,DATUM=z.DATUM,VREME_DOLASKA=z.VREME_ODLASKA,VREME_ODLASKA=z.VREME_ODLASKA,ID_STOLA=z.ID_STOLA,NAZIV_RESTORANA=x.NAZIV_RESTORANA, IME=w.IME_GOSTA,PREZIME=w.PREZIME_GOSTA };
+
+                IEnumerable<Restoran2016.ModelView.PozivRestoran> poziviLista = pozivi;        
                 
-                var tuple = new Tuple<ModelView.Profil, IEnumerable<Restoran2016.ModelView.RezervisaniRestoran>>(prof, poseteLista);
+                var tuple = new Tuple<ModelView.Profil, IEnumerable<Restoran2016.ModelView.RezervisaniRestoran>,IEnumerable<Restoran2016.ModelView.PozivRestoran>>(prof, poseteLista,poziviLista);
 
                 return View(tuple);
             }
@@ -158,7 +168,13 @@ namespace Restoran2016.Controllers
            }
            
             ViewBag.jel =jelLista;
-            ViewBag.MapUrl = MapAddress(rest.ADRESA_RESTORANA, 10000, "ROAD", 240, 320);
+            if (rest.LATITUDA == null || rest.LONGITUDA == null)
+                ViewBag.MapUrl = MapAddress(rest.ADRESA_RESTORANA, 10000, "ROAD", 240, 320);
+            else
+            {
+                ViewBag.MapUrl = MapCoordinates((double)rest.LATITUDA, (double)rest.LONGITUDA, 10000, "ROAD", 240, 320);
+            }
+            
         return View(rest);
         }
 
@@ -354,15 +370,18 @@ namespace Restoran2016.Controllers
         [HttpPost]
         public ActionResult RezervisiRestoran(REZERVACIJA rez)
         {
-            var slobodniStolovi = from x in db.REZERVACIJAs where !(x.DATUM == rez.DATUM && ((rez.VREME_DOLASKA < x.VREME_DOLASKA && rez.VREME_ODLASKA > x.VREME_DOLASKA) || (rez.VREME_DOLASKA > x.VREME_DOLASKA && rez.VREME_ODLASKA < x.VREME_ODLASKA) || (rez.VREME_DOLASKA < x.VREME_ODLASKA && rez.VREME_ODLASKA > x.VREME_ODLASKA))) select x.ID_STOLA;
-            var sviRezervisani = from x in db.REZERVACIJAs where (x.DATUM == rez.DATUM && ((rez.VREME_DOLASKA <= x.VREME_DOLASKA && rez.VREME_ODLASKA >= x.VREME_DOLASKA) || (rez.VREME_DOLASKA > x.VREME_DOLASKA && rez.VREME_ODLASKA < x.VREME_ODLASKA) || (rez.VREME_DOLASKA < x.VREME_ODLASKA && rez.VREME_ODLASKA > x.VREME_ODLASKA))) select x.ID_STOLA;
+            DateTime datum = rez.DATUM;
+            DateTime dolazak = new DateTime(rez.DATUM.Year, rez.DATUM.Month, rez.DATUM.Day, rez.VREME_DOLASKA.Hour, rez.VREME_DOLASKA.Minute, rez.VREME_DOLASKA.Second);
+            DateTime odlazak = new DateTime(rez.DATUM.Year, rez.DATUM.Month, rez.DATUM.Day, rez.VREME_ODLASKA.Hour, rez.VREME_ODLASKA.Minute, rez.VREME_ODLASKA.Second);
+            rez.VREME_DOLASKA = dolazak;
+            rez.VREME_ODLASKA = odlazak;
+           // var slobodniStolovi = from x in db.REZERVACIJAs where !(x.DATUM == rez.DATUM && ((rez.VREME_DOLASKA <= x.VREME_DOLASKA && rez.VREME_ODLASKA >= x.VREME_DOLASKA) || (rez.VREME_DOLASKA >= x.VREME_DOLASKA && rez.VREME_ODLASKA <= x.VREME_ODLASKA) || (rez.VREME_DOLASKA <= x.VREME_ODLASKA && rez.VREME_ODLASKA >= x.VREME_ODLASKA))) select x.ID_STOLA;
+            var sviRezervisani = from x in db.REZERVACIJAs where (x.DATUM == rez.DATUM && x.ID_RESTORANA==rez.ID_RESTORANA && ((rez.VREME_DOLASKA <= x.VREME_DOLASKA && rez.VREME_ODLASKA >= x.VREME_DOLASKA) || (rez.VREME_DOLASKA >= x.VREME_DOLASKA && rez.VREME_ODLASKA <= x.VREME_ODLASKA) || (rez.VREME_DOLASKA <= x.VREME_ODLASKA && rez.VREME_ODLASKA >= x.VREME_ODLASKA))) select x.ID_STOLA;
             var sviStolovi = from x in db.STOes where x.ID_RESTORANA == rez.ID_RESTORANA select x.ID_STOLA;
             var sviSlobodni = sviStolovi.Except(sviRezervisani);
 
             List<String> lista = new List<String>();
-            DateTime datum = rez.DATUM;
-            DateTime dolazak = new DateTime(rez.DATUM.Year, rez.DATUM.Month, rez.DATUM.Day, rez.VREME_DOLASKA.Hour, rez.VREME_DOLASKA.Minute, rez.VREME_DOLASKA.Second);
-            DateTime odlazak = new DateTime(rez.DATUM.Year, rez.DATUM.Month, rez.DATUM.Day, rez.VREME_ODLASKA.Hour, rez.VREME_ODLASKA.Minute, rez.VREME_ODLASKA.Second);
+
 
             foreach (string num in sviSlobodni)
             {
@@ -439,7 +458,7 @@ namespace Restoran2016.Controllers
                 prijateljiGosta = listaPri.Select(x => new SelectListItem
                 {
                     Value = x.EMAIL_GOSTA,
-                    Text = x.EMAIL_GOSTA
+                    Text = x.GOST.IME_GOSTA+" "+x.GOST.PREZIME_GOSTA
                 })
             };
             return View(model);
@@ -449,7 +468,8 @@ namespace Restoran2016.Controllers
         public ActionResult PozoviPrijatelje(PoziviPrijatelja lista)
         {
 
-
+            if (lista.SelektovaniPr==null)
+                return RedirectToAction("Profil");
             for (int i = 0; i < lista.SelektovaniPr.Count(); i++)
             {
                 REZERVACIJA rez = TempData["rez1"] as REZERVACIJA;
@@ -464,9 +484,26 @@ namespace Restoran2016.Controllers
                 db.SaveChanges();
 
             }
-            return RedirectToAction("Profil");
+            return Redirect(Url.RouteUrl(new { controller = "Profil", action = "Profil" }) + "#tabs-3");
         }
 
+     
+        public ActionResult PrihvatiPoziv(int id, String email1, String email)
+        {
+            PRIJATELJI_REZERVACIJA rez = db.PRIJATELJI_REZERVACIJA.Find(email1, email, id);
+            rez.OCENA = 0;
+            db.Entry(rez).State = EntityState.Modified;
+            db.SaveChanges();
+            return Redirect(Url.RouteUrl(new { controller = "Profil", action = "Profil" }) + "#tabs-3");
+        }
+
+        public ActionResult OdbijPoziv(int id, String email1, String email)
+        {
+            PRIJATELJI_REZERVACIJA rez = db.PRIJATELJI_REZERVACIJA.Find(email1, email, id);
+            db.PRIJATELJI_REZERVACIJA.Remove(rez);
+            db.SaveChanges();
+            return Redirect(Url.RouteUrl(new { controller = "Profil", action = "Profil" }) + "#tabs-3");
+        }
 
      private GeocodeServices.Location GeocodeAddress(string address)
      {
@@ -545,10 +582,18 @@ namespace Restoran2016.Controllers
      private string MapAddress(string address, int zoom, string mapStyle, int width, int height)
      {
          GeocodeServices.Location latlong = GeocodeAddress(address);
-          double latitude = latlong.Latitude;
-         double longitude = latlong.Longitude;
+         if (latlong == null) { double latitude = 0; double longitude = 0; return GetMapUri(latitude, longitude, zoom, mapStyle, width, height); }
+         else
+         {
+             double latitude = latlong.Latitude;
+             double longitude = latlong.Longitude;
+             return GetMapUri(latitude, longitude, zoom, mapStyle, width, height);
+         }
+
+     }
+     private string MapCoordinates(double latitude, double longitude, int zoom, string mapStyle, int width, int height)
+     {
          return GetMapUri(latitude, longitude, zoom, mapStyle, width, height);
      }
-
 	}
 }

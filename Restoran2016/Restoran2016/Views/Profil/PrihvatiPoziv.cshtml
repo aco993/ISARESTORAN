@@ -1,0 +1,23 @@
+﻿@model Restoran2016.Models.REZERVACIJA
+
+@{
+    ViewBag.Title = "PrihvatiPoziv";
+}
+
+<h2>PrihvatiPoziv</h2>
+
+<h3>Da li ste sigurni da zelite prihvatiti poziv?</h3>
+<div>
+  
+    <hr />
+
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Dodaj" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
