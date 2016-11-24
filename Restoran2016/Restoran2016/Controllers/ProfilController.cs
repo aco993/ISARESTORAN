@@ -348,6 +348,28 @@ namespace Restoran2016.Controllers
             return View(rez);
         }
 
+        [HttpGet]
+        public ActionResult OceniRestoranPoz(int id,string email1, string email)
+        {
+            PRIJATELJI_REZERVACIJA pr = db.PRIJATELJI_REZERVACIJA.Find(email1, email,id);
+            
+            return View(pr);
+        }
+
+        [HttpPost]
+        public ActionResult OceniRestoranPoz(PRIJATELJI_REZERVACIJA pr)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                db.Entry(pr).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Profil");
+            }
+
+            return View(pr);
+        }
 
         [HttpGet]
         public ActionResult RezervisiRestoran(string id)

@@ -491,6 +491,9 @@
     <Content Include="Views\Profil\PozoviPrijatelje.cshtml" />
     <Content Include="Views\ProfilMenadzera\PromeniKoordinate.cshtml" />
     <Content Include="Views\Profil\PrihvatiPoziv.cshtml" />
+    <Content Include="Views\Profil\OceniRestoranPoz.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\CekajKonfirmaciju.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
