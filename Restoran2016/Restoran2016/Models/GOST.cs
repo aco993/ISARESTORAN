@@ -11,6 +11,8 @@ namespace Restoran2016.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel;
     
     public partial class GOST
     {
@@ -20,13 +22,28 @@ namespace Restoran2016.Models
             this.PRIJATELJIs1 = new HashSet<PRIJATELJI>();
             this.REZERVACIJAs = new HashSet<REZERVACIJA>();
         }
-    
+
+        [Required(ErrorMessage = "Email je obavezan")]
+        [DisplayName("Email")]
         public string EMAIL_GOSTA { get; set; }
+        [Required(ErrorMessage = "Lozinka je obavezna")]
+        [DisplayName("Lozinka")]
+        [DataType(DataType.Password)]
         public string PASS_GOSTA { get; set; }
+        [Required(ErrorMessage = "Ime je obavezno")]
+        [DisplayName("Ime")]
         public string IME_GOSTA { get; set; }
+        [Required(ErrorMessage = "Prezme je obavezno")]
+        [DisplayName("Prezime")]
         public string PREZIME_GOSTA { get; set; }
+        [Required(ErrorMessage = "Pol je obavezan")]
+        [DisplayName("Pol")]
         public string POL_GOSTA { get; set; }
         public bool MAIL_POTVRA { get; set; }
+        [Required(ErrorMessage = "Potvrdna lozinke je obavezna")]
+        [DisplayName("Potvrda lozinke")]
+        [DataType(DataType.Password)]
+        [Compare("PASS_GOSTA", ErrorMessage = "Lozinke se ne poklapaju.")]
         public string CPASS_GOSTA { get; set; }
         public byte[] SLIKA { get; set; }
     

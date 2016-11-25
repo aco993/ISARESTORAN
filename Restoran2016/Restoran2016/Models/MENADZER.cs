@@ -11,12 +11,23 @@ namespace Restoran2016.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel;
     public partial class MENADZER
     {
+        [Required(ErrorMessage = "ID menadzera je obavezan")]
+        [DisplayName("ID menadzera")]
+
         public string IDMENADZERA { get; set; }
+        [Required(ErrorMessage = "Restoran je obavezan")]
+        [DisplayName("Restoran")]
         public string ID_RESTORANA { get; set; }
+        [Required(ErrorMessage = "Lozinka je obavezna")]
+        [DisplayName("Lozinka")]
+        [DataType(DataType.Password)]
         public string ASD { get; set; }
+
+      
     
         public virtual RESTORAN RESTORAN { get; set; }
     }

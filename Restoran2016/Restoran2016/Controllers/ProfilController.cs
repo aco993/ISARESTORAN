@@ -451,9 +451,28 @@ namespace Restoran2016.Controllers
             rez.VREME_DOLASKA = (System.DateTime)TempData["dolazak"];
             rez.VREME_ODLASKA = (System.DateTime)TempData["odlazak"];
             rez.ID_RESTORANA = (String)TempData["r"];
-            db.napuni_rezervacije(99, rez.EMAIL_GOSTA, rez.ID_RESTORANA, id, rez.DATUM, rez.VREME_DOLASKA, rez.VREME_ODLASKA);
-            db.SaveChanges();
-            //db.REZERVACIJAs.Add()
+
+            using (var db = new aco4Entities())
+            {
+                using (var dbContextTransaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        db.napuni_rezervacije(99, rez.EMAIL_GOSTA, rez.ID_RESTORANA, id, rez.DATUM, rez.VREME_DOLASKA, rez.VREME_ODLASKA);
+                        db.SaveChanges();
+
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        dbContextTransaction.Rollback();
+                    }
+                }
+            } 
+
+           // db.napuni_rezervacije(99, rez.EMAIL_GOSTA, rez.ID_RESTORANA, id, rez.DATUM, rez.VREME_DOLASKA, rez.VREME_ODLASKA);
+            //db.SaveChanges();
+            
             List<string> lista = TempData["checkboxovi"] as List<String>;
             //       lista.Remove(id);
             TempData["rez"] = rez;

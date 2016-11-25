@@ -11,7 +11,8 @@ namespace Restoran2016.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel;
     public partial class PRIJATELJI
     {
         public PRIJATELJI()

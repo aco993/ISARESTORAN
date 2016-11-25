@@ -11,13 +11,21 @@ namespace Restoran2016.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel;
     public partial class JELOVNIK
     {
+        [DisplayName("ID restorana")]
         public string ID_RESTORANA { get; set; }
         public string ID_JELA { get; set; }
+        [Required(ErrorMessage = "Naziv jela je obavezan")]
+        [DisplayName("Naziv jela")]
         public string NAZIV_JELA { get; set; }
+        [Required(ErrorMessage = "Vrsta je obavezna")]
+        [DisplayName("Vrsta")]
         public string OPIS { get; set; }
+        [Required(ErrorMessage = "Cena je obavezna")]
+        [DisplayName("Cena")]
         public decimal CENA_JELA { get; set; }
     
         public virtual RESTORAN RESTORAN { get; set; }

@@ -12,6 +12,7 @@ namespace Restoran2016.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel;
     public partial class RESTORAN
     {
         public RESTORAN()
@@ -20,18 +21,37 @@ namespace Restoran2016.Models
             this.MENADZERs = new HashSet<MENADZER>();
             this.STOes = new HashSet<STO>();
         }
-    
+        [Required(ErrorMessage = "ID restorana je obavezan")]
+        [DisplayName("ID restorana")]
         public string ID_RESTORANA { get; set; }
+        [Required(ErrorMessage = "Naziv restorana je obavezan")]
+        [DisplayName("Naziv restorana")]
         public string NAZIV_RESTORANA { get; set; }
+        [Required(ErrorMessage = "Adresa je obavezna")]
+        [DisplayName("Adresa")]
         public string ADRESA_RESTORANA { get; set; }
+     
+        [DisplayName("Email")]
         public string MAIL_RESTORANA { get; set; }
+  
+        [DisplayName("Telefon")]
         public string TELEFON_RESTORANA { get; set; }
+       
+        [DisplayName("Prosecna ocena")]
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public float PROSECNA_OCENA { get; set; }
+        [Required(ErrorMessage = "Opis je obavezan")]
+        [DisplayName("Opis")]
         public string OPIS_RESTPRANA { get; set; }
+        
+        [DisplayName("Latituda")]
         public Nullable<float> LATITUDA { get; set; }
+       
+        [DisplayName("Longituda")]
         public Nullable<float> LONGITUDA { get; set; }
         public Nullable<int> BROJ_KOLONA { get; set; }
+        
+        [DisplayName("Broj stolova")]
         public Nullable<int> BROJ_STOLOVA { get; set; }
     
         public virtual ICollection<JELOVNIK> JELOVNIKs { get; set; }
