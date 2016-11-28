@@ -18,6 +18,8 @@ namespace Restoran2016.Models
         public string EMAIL_GOSTA1 { get; set; }
         public string EMAIL_GOSTA { get; set; }
         public int ID { get; set; }
+        [DisplayName("Ocena")]
+        [Range(0, 5, ErrorMessage = "Ocena mora biti izmedju 1 i 5.")]
         public Nullable<int> OCENA { get; set; }
     
         public virtual PRIJATELJI PRIJATELJI { get; set; }

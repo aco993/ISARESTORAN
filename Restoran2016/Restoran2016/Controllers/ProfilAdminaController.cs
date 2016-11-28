@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Restoran2016.Models;
 using System.Data.Entity;
+using System.Globalization;
 
 namespace Restoran2016.Controllers
 {
@@ -131,8 +132,18 @@ namespace Restoran2016.Controllers
         public ActionResult DeleteRestoranConfirmed(string id)
         {
             RESTORAN rest = db.RESTORANs.Find(id);
-            var brisanje = db.STOes.Where(x=>x.ID_RESTORANA==id);
-            db.STOes.RemoveRange(brisanje);
+            
+            var brisanjeRez = db.REZERVACIJAs.Where(x => x.ID_RESTORANA == id);
+            foreach (var item in brisanjeRez)
+            {
+                var brisanjePrijRez = db.PRIJATELJI_REZERVACIJA.Where(x => x.ID == item.ID);
+                db.PRIJATELJI_REZERVACIJA.RemoveRange(brisanjePrijRez);
+            }
+            var brisanjeStolova = db.STOes.Where(x=>x.ID_RESTORANA==id);
+            var brisanjeMen = db.MENADZERs.Where(x => x.ID_RESTORANA == id);
+            db.REZERVACIJAs.RemoveRange(brisanjeRez);
+            db.STOes.RemoveRange(brisanjeStolova);
+            db.MENADZERs.RemoveRange(brisanjeMen);
             db.RESTORANs.Remove(rest);
             db.SaveChanges();
             return RedirectToAction("ProfilAdmina");
@@ -155,6 +166,12 @@ namespace Restoran2016.Controllers
             menadzer.ID_RESTORANA = c.ID_RESTORANA;
             menadzer.RESTORAN = c;
 
+            ModelState.Remove("RESTORAN.ID_RESTORANA");
+            ModelState.Remove("RESTORAN.OPIS_RESTPRANA");
+            ModelState.Remove("RESTORAN.ADRESA_RESTORANA");
+            ModelState.SetModelValue("RESTORAN.ID_RESTORANA", new ValueProviderResult(c.ID_RESTORANA, c.ID_RESTORANA, CultureInfo.InvariantCulture));
+            ModelState.SetModelValue("RESTORAN.OPIS_RESTPRANA", new ValueProviderResult(c.OPIS_RESTPRANA, c.OPIS_RESTPRANA, CultureInfo.InvariantCulture));
+            ModelState.SetModelValue("RESTORAN.ADRESA_RESTORANA", new ValueProviderResult(c.ADRESA_RESTORANA, c.ADRESA_RESTORANA, CultureInfo.InvariantCulture));
             //Add(db.RESTORANs.Where(z => z.ID_RESTORANA == item).Single());
             if (ModelState.IsValid)
             {

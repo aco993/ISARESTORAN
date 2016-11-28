@@ -55,10 +55,10 @@
 
 }
 
-@if (@ViewBag.kolona * @ViewBag.BrojRedova < @ViewBag.BrojStolova)
+@if (kolona * @ViewBag.BrojRedova < @ViewBag.BrojStolova)
 {
 
-    for (var n = @ViewBag.kolona * @ViewBag.BrojRedova + 1; n <= @ViewBag.BrojStolova; n++)
+    for (var n = kolona * @ViewBag.BrojRedova + 1; n <= @ViewBag.BrojStolova; n++)
     {
         if (ViewBag.listaDostupnih.Contains(n.ToString())) { 
         <td>

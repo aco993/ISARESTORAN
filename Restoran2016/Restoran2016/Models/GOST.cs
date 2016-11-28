@@ -22,7 +22,7 @@ namespace Restoran2016.Models
             this.PRIJATELJIs1 = new HashSet<PRIJATELJI>();
             this.REZERVACIJAs = new HashSet<REZERVACIJA>();
         }
-
+       
         [Required(ErrorMessage = "Email je obavezan")]
         [DisplayName("Email")]
         public string EMAIL_GOSTA { get; set; }
@@ -38,6 +38,7 @@ namespace Restoran2016.Models
         public string PREZIME_GOSTA { get; set; }
         [Required(ErrorMessage = "Pol je obavezan")]
         [DisplayName("Pol")]
+        [RegularExpression(@"^[mMzZ]$", ErrorMessage = "dozvoljene vrednosti su 'M' i 'Z' ")]
         public string POL_GOSTA { get; set; }
         public bool MAIL_POTVRA { get; set; }
         [Required(ErrorMessage = "Potvrdna lozinke je obavezna")]

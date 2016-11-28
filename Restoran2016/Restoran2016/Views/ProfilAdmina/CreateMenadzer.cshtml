@@ -13,7 +13,12 @@
     <div class="form-horizontal">
         <h4>MENADZER</h4>
         <hr />
-        @Html.ValidationSummary(true)
+        @Html.ValidationSummary(false)
+
+        @Html.HiddenFor(model => model.ID_RESTORANA)
+        @Html.HiddenFor(model => model.RESTORAN.ID_RESTORANA)
+        @Html.HiddenFor(model => model.RESTORAN.ADRESA_RESTORANA)
+        @Html.HiddenFor(model => model.RESTORAN.OPIS_RESTPRANA)
 
         <div class="form-group">
             @Html.LabelFor(model => model.IDMENADZERA, new { @class = "control-label col-md-2" })
@@ -50,5 +55,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Vrati se nazad", null, null, null, new { href = Request.UrlReferrer })
 </div>

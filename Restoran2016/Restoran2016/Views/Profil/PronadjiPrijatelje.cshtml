@@ -6,10 +6,6 @@
 
 <h2>PronadjiPrijatelje</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
 @using (Html.BeginForm()){
 <p>
     Ime: @Html.TextBox("ime")
@@ -25,16 +21,17 @@
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.IME_GOSTA)
+            @Html.ActionLink("Ime", "PronadjiPrijatelje", new { sortOrder = ViewBag.imeSort })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PREZIME_GOSTA)
+            @Html.ActionLink("Prezime", "PronadjiPrijatelje", new { sortOrder = ViewBag.prezimeSort })
         </th>
 
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
+    
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.EMAIL_GOSTA)
@@ -46,12 +43,17 @@
         <td>
             @Html.DisplayFor(modelItem => item.PREZIME_GOSTA)
         </td>
-       
+        
         <td>
-            @Html.ActionLink("Dodaj", "Dodaj", new { @id = item.EMAIL_GOSTA }) 
+            @Html.ActionLink("Dodaj", "Dodaj", new { ime = item.IME_GOSTA, prezime = item.PREZIME_GOSTA }) 
 
-        </td>
+        </td> 
+        
     </tr>
 }
 
 </table>
+
+<div>
+    @Html.ActionLink("Vrati se nazad", null, null, null, new { href = Request.UrlReferrer })
+</div>

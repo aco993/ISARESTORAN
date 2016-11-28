@@ -2,8 +2,10 @@
 
 
 @{
-    ViewBag.Title = "Profil";
+    
+ViewBag.Title = "Profil";
 }
+
 
 <h2>Profil</h2>
 
@@ -41,7 +43,7 @@
         @Html.DisplayNameFor(model => model.Item1.prezime): @Html.DisplayFor(model => model.Item1.prezime)
     </div>
 
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.Email })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.ime })
 </fieldset> 
     </div>
     <div id="tabs-2">
@@ -76,7 +78,7 @@
 
                         <td>
 
-                            @Html.ActionLink("Obrisi", "ObrisiP", new { id = item.EMAIL_GOSTA })
+                            @Html.ActionLink("Obrisi", "ObrisiP", new { ime = item.IME_GOSTA, prezime = item.PREZIME_GOSTA })
                         </td>
                     </tr>
                 }
@@ -110,11 +112,11 @@
                         </td>
 
                         <td>
-                            @Html.ActionLink("Prihvati", "Dodaj2", new { id = item.EMAIL_GOSTA })
+                            @Html.ActionLink("Prihvati", "Dodaj2", new { ime = item.IME_GOSTA, prezime=item.PREZIME_GOSTA })
                         </td>
 
                         <td>
-                            @Html.ActionLink("Odbij", "OdbijP", new { id = item.EMAIL_GOSTA })
+                            @Html.ActionLink("Odbij", "OdbijP", new { ime = item.IME_GOSTA, prezime = item.PREZIME_GOSTA })
                         </td>
 
                     </tr>
@@ -149,7 +151,7 @@
                         </td>
 
                         <td>
-                            @Html.ActionLink("Dodaj", "Dodaj", new { id = item.EMAIL_GOSTA })
+                            @Html.ActionLink("Dodaj", "Dodaj", new { ime = item.IME_GOSTA, prezime = item.PREZIME_GOSTA })
                         </td>
 
                     </tr>
@@ -332,6 +334,9 @@
                         <td>
                             @item.ID_STOLA
                         </td>
+                        <td>
+                            @Html.ActionLink("Prijatelji", "ListaPrijateljaRez", new { id = item.ID })
+                        </td>
 
                     </tr>
                 }                
@@ -357,6 +362,10 @@
 
                             <td>
                                 @item.ID_STOLA
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Prijatelji", "ListaPrijateljaRez", new { id = item.ID })
                             </td>
 
                         </tr>

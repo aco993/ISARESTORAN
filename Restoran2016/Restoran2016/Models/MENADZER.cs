@@ -19,8 +19,7 @@ namespace Restoran2016.Models
         [DisplayName("ID menadzera")]
 
         public string IDMENADZERA { get; set; }
-        [Required(ErrorMessage = "Restoran je obavezan")]
-        [DisplayName("Restoran")]
+
         public string ID_RESTORANA { get; set; }
         [Required(ErrorMessage = "Lozinka je obavezna")]
         [DisplayName("Lozinka")]

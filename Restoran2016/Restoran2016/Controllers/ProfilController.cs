@@ -6,7 +6,11 @@ using System.Web.Mvc;
 using Restoran2016.Models;
 using System.Data.Entity;
 using Restoran2016.GeocodeServices;
-using Restoran2016.ImageryServices; 
+using Restoran2016.ImageryServices;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Claims;
+using System.Net.Security;
 
 namespace Restoran2016.Controllers
 {
@@ -47,9 +51,10 @@ namespace Restoran2016.Controllers
 
                 }
 
+                TempData["prijatelji"] = prof.prijatelji;
+
                 var zaht = db.PRIJATELJIs.Where(z => z.EMAIL_GOSTA == id).Where(z=>z.EMAIL_GOSTA1!=id).Select(z => z.EMAIL_GOSTA1).ToList();
                 prof.zahtevi = new List<GOST>();
-
  
                     foreach (var item in zaht)
                     {  
@@ -102,10 +107,15 @@ namespace Restoran2016.Controllers
 
         }
 
-        public ActionResult PronadjiPrijatelje(string ime, string prezime) {
+        public ActionResult PronadjiPrijatelje(string ime, string prezime, string sortOrder)
+        {
+
+            ViewBag.imeSort = String.IsNullOrEmpty(sortOrder) ? "ime_desc" : "";
+            ViewBag.prezimeSort = sortOrder == "Prezime" ? "prezime_desc" : "prezime_asc";
 
             var gosti = from g in db.GOSTs
                          select g;
+
 
             if (!String.IsNullOrEmpty(ime)) {
                 gosti = gosti.Where(x => x.IME_GOSTA.Contains(ime));
@@ -115,6 +125,23 @@ namespace Restoran2016.Controllers
             {
                 gosti = gosti.Where(x => x.PREZIME_GOSTA.Contains(prezime));
             }
+
+            switch (sortOrder)
+            {
+                case "ime_desc":
+                    gosti = gosti.OrderByDescending(s => s.IME_GOSTA);
+                    break;
+                case "prezime_asc":
+                    gosti = gosti.OrderBy(s => s.PREZIME_GOSTA);
+                    break;
+                case "prezime_desc":
+                    gosti = gosti.OrderByDescending(s => s.PREZIME_GOSTA);
+                    break;
+                default:
+                    gosti = gosti.OrderBy(s => s.IME_GOSTA);
+                    break;
+            }
+
 
             return View(gosti);
         }
@@ -179,24 +206,27 @@ namespace Restoran2016.Controllers
         }
 
         [HttpGet]
-        public ActionResult Dodaj(string id)
+        public ActionResult Dodaj(string ime, string prezime)
         {
-            GOST gost = db.GOSTs.Find(id);
+            GOST gost = db.GOSTs.Where(x => x.IME_GOSTA == ime).Where(y => y.PREZIME_GOSTA == prezime).Single();
 
             if (gost == null)
             {
                 return HttpNotFound();
             }
+            TempData["idGosta"] = Session["idGosta"];
             return View(gost);
         }
 
         [HttpPost, ActionName("Dodaj")]
-        public ActionResult DodajConfirmed(string id)
+        public ActionResult DodajConfirmed(string ime, string prezime)
         {
-            string posiljalac = Session["idGosta"].ToString();
+            GOST gost = db.GOSTs.Where(x => x.IME_GOSTA == ime).Where(y => y.PREZIME_GOSTA == prezime).Single();
+
+            string posiljalac = TempData["idGosta"].ToString();
             PRIJATELJI pr = new PRIJATELJI();
             pr.EMAIL_GOSTA1 = posiljalac;
-            pr.EMAIL_GOSTA = id;
+            pr.EMAIL_GOSTA = gost.EMAIL_GOSTA;
             pr.PRIJATELJI_OD = System.DateTime.Now;
 
             db.PRIJATELJIs.Add(pr);
@@ -207,9 +237,9 @@ namespace Restoran2016.Controllers
         }
 //TODO nepotrebne obe metode Dodaj i Dodaj2
         [HttpGet]
-        public ActionResult Dodaj2(string id)
+        public ActionResult Dodaj2(string ime,string prezime)
         {
-            GOST gost = db.GOSTs.Find(id);
+            GOST gost = db.GOSTs.Where(x => x.IME_GOSTA == ime).Where(y => y.PREZIME_GOSTA == prezime).Single();
 
             if (gost == null)
             {
@@ -222,12 +252,14 @@ namespace Restoran2016.Controllers
         }
 
         [HttpPost, ActionName("Dodaj2")]
-        public ActionResult Dodaj2Confirmed(string id)
+        public ActionResult Dodaj2Confirmed(string ime,string prezime)
         {
+            GOST gost = db.GOSTs.Where(x => x.IME_GOSTA == ime).Where(y => y.PREZIME_GOSTA == prezime).Single();
+
             string posiljalac = Session["idGosta"].ToString();
             PRIJATELJI pr = new PRIJATELJI();
             pr.EMAIL_GOSTA1 = posiljalac;
-            pr.EMAIL_GOSTA = id;
+            pr.EMAIL_GOSTA = gost.EMAIL_GOSTA;
             pr.PRIJATELJI_OD = System.DateTime.Now;
 
             db.PRIJATELJIs.Add(pr);
@@ -237,9 +269,9 @@ namespace Restoran2016.Controllers
 
         }
         [HttpGet]
-        public ActionResult ObrisiP(string id)
+        public ActionResult ObrisiP(string ime, string prezime)
         {
-            GOST gost = db.GOSTs.Find(id);
+            GOST gost = db.GOSTs.Where(x => x.IME_GOSTA == ime).Where(y => y.PREZIME_GOSTA == prezime).Single();
 
             if (gost == null)
             {
@@ -250,10 +282,12 @@ namespace Restoran2016.Controllers
         }
 
         [HttpPost, ActionName("ObrisiP")]
-        public ActionResult ObrisiPConfirmed(string id)
+        public ActionResult ObrisiPConfirmed(string ime, string prezime)
         {
+            GOST gost = db.GOSTs.Where(x => x.IME_GOSTA == ime).Where(y => y.PREZIME_GOSTA == prezime).Single();
+
             string posiljalac = Session["idGosta"].ToString();
-            PRIJATELJI pr = db.PRIJATELJIs.Find(posiljalac, id);
+            PRIJATELJI pr = db.PRIJATELJIs.Find(posiljalac, gost.EMAIL_GOSTA);
 
             db.PRIJATELJIs.Remove(pr);
 
@@ -263,9 +297,9 @@ namespace Restoran2016.Controllers
         }
 
         [HttpGet]
-        public ActionResult OdbijP(string id)
+        public ActionResult OdbijP(string ime, string prezime)
         {
-            GOST gost = db.GOSTs.Find(id);
+            GOST gost = db.GOSTs.Where(x => x.IME_GOSTA == ime).Where(y => y.PREZIME_GOSTA == prezime).Single();
 
             if (gost == null)
             {
@@ -276,10 +310,12 @@ namespace Restoran2016.Controllers
         }
 
         [HttpPost, ActionName("OdbijP")]
-        public ActionResult OdbijPConfirmed(string id)
+        public ActionResult OdbijPConfirmed(string ime, string prezime)
         {
+            GOST gost = db.GOSTs.Where(x => x.IME_GOSTA == ime).Where(y => y.PREZIME_GOSTA == prezime).Single();
+
             string posiljalac = Session["idGosta"].ToString();
-            PRIJATELJI pr = db.PRIJATELJIs.Find(id, posiljalac);
+            PRIJATELJI pr = db.PRIJATELJIs.Find(gost.EMAIL_GOSTA, posiljalac);
 
 
             db.PRIJATELJIs.Remove(pr);
@@ -291,8 +327,8 @@ namespace Restoran2016.Controllers
 
         public ActionResult Edit(string id)
         {
-
-            GOST gost = db.GOSTs.Find(id);
+            string email = Session["idGosta"].ToString();
+            GOST gost = db.GOSTs.Find(email);
             if (gost == null)
             {
                 return HttpNotFound();
@@ -436,7 +472,6 @@ namespace Restoran2016.Controllers
             ViewBag.listaDostupnih = lista;
             return View();
 
-
         }
     
         public ActionResult RezervisiRestoran3(string id)
@@ -470,9 +505,6 @@ namespace Restoran2016.Controllers
                 }
             } 
 
-           // db.napuni_rezervacije(99, rez.EMAIL_GOSTA, rez.ID_RESTORANA, id, rez.DATUM, rez.VREME_DOLASKA, rez.VREME_ODLASKA);
-            //db.SaveChanges();
-            
             List<string> lista = TempData["checkboxovi"] as List<String>;
             //       lista.Remove(id);
             TempData["rez"] = rez;
@@ -490,7 +522,7 @@ namespace Restoran2016.Controllers
             int brojPri = 0;
             foreach (var item in prijatelji)
             {
-                listaPri.Add(db.PRIJATELJIs.Where(x => x.EMAIL_GOSTA == item).Single());
+                listaPri.Add(db.PRIJATELJIs.Where(x => x.EMAIL_GOSTA == item).Where(y=>y.EMAIL_GOSTA1==rez.EMAIL_GOSTA).Single());
                 brojPri++;
             }
             var model = new PoziviPrijatelja
@@ -514,7 +546,7 @@ namespace Restoran2016.Controllers
             for (int i = 0; i < lista.SelektovaniPr.Count(); i++)
             {
                 REZERVACIJA rez = TempData["rez1"] as REZERVACIJA;
-                var rezID = (from y in db.REZERVACIJAs where y.EMAIL_GOSTA == rez.EMAIL_GOSTA && y.DATUM == rez.DATUM && y.ID_RESTORANA == rez.ID_RESTORANA && y.VREME_DOLASKA == rez.VREME_DOLASKA select y.ID).FirstOrDefault(); // moze umjesto svega ovog y.ID==rez.ID, ali ovo moze biti pogodno za visestruke rezervacije
+                var rezID = (from y in db.REZERVACIJAs where y.EMAIL_GOSTA == rez.EMAIL_GOSTA && y.DATUM == rez.DATUM && y.ID_RESTORANA == rez.ID_RESTORANA && y.VREME_DOLASKA == rez.VREME_DOLASKA select y.ID).FirstOrDefault(); // moze umjesto svega ovog y.ID==rez.ID, ali ovo moze biti pogodno za visestruke rezervacije TODO: ispraviti
                 String rezIDD = rezID.ToString();
                 PRIJATELJI_REZERVACIJA pr = new PRIJATELJI_REZERVACIJA();
                 pr.EMAIL_GOSTA1 = Session["idgosta"].ToString();
@@ -523,6 +555,24 @@ namespace Restoran2016.Controllers
                 pr.OCENA = null;
                 db.PRIJATELJI_REZERVACIJA.Add(pr);
                 db.SaveChanges();
+
+                
+                System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+new System.Net.Mail.MailAddress("kupojeprodajic@gmail.com", "Poziv u restoran"),
+new System.Net.Mail.MailAddress(pr.EMAIL_GOSTA));
+                m.Subject = "Poziv u restoran";
+                m.Body = string.Format("Postovani {0},<BR/>Pozvani ste u restoran {1} od strane korisnika {2} datuma {3} od {4} do {5}. Da prihvatite ili odbijete poziv posetite link: <a href=\"{6}\" title=\"Poziv u restoran\">{6}</a>", pr.EMAIL_GOSTA, rez.ID_RESTORANA, pr.EMAIL_GOSTA1, rez.DATUM, rez.VREME_DOLASKA, rez.VREME_ODLASKA, Url.Action("Login", "Account", new { Token = pr.EMAIL_GOSTA }, Request.Url.Scheme));
+                m.IsBodyHtml = true;
+                System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
+                smtp.Credentials = new System.Net.NetworkCredential("kupojeprodajic@gmail.com", "al255593");
+                smtp.EnableSsl = true;
+
+                ServicePointManager.ServerCertificateValidationCallback =
+delegate(object s, X509Certificate certificate,
+X509Chain chain, SslPolicyErrors sslPolicyErrors)
+{ return true; };
+
+                smtp.Send(m);
 
             }
             return Redirect(Url.RouteUrl(new { controller = "Profil", action = "Profil" }) + "#tabs-3");
@@ -545,6 +595,26 @@ namespace Restoran2016.Controllers
             db.SaveChanges();
             return Redirect(Url.RouteUrl(new { controller = "Profil", action = "Profil" }) + "#tabs-3");
         }
+
+        public ActionResult ListaPrijateljaRez(int id) {
+
+            REZERVACIJA rez = db.REZERVACIJAs.Find(id);
+            List<GOST> listaGost = new List<GOST>();
+            var pri = db.PRIJATELJI_REZERVACIJA.Where(x => x.ID == rez.ID);
+
+            var imeIprez = from pr in db.PRIJATELJI_REZERVACIJA 
+                           join g in db.GOSTs on pr.EMAIL_GOSTA
+                           equals g.EMAIL_GOSTA 
+                           where pr.ID==rez.ID
+                           select new ModelView.PozivRestoran { IME = g.IME_GOSTA, PREZIME = g.PREZIME_GOSTA };
+
+            IEnumerable<Restoran2016.ModelView.PozivRestoran> poziviLista = imeIprez; 
+           
+
+            return View(poziviLista);
+        
+        }
+
 
      private GeocodeServices.Location GeocodeAddress(string address)
      {

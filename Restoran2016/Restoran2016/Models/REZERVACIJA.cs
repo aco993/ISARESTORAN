@@ -28,6 +28,7 @@ namespace Restoran2016.Models
         [DisplayName("Broj stola")]
         public string ID_STOLA { get; set; }
         [DisplayName("Ocena")]
+        [Range(0, 5, ErrorMessage = "Ocena mora biti izmedju 1 i 5.")]
         public int OCENA { get; set; }
         [DisplayName("Vreme dolaska")]
         [DataType(DataType.Time)]
