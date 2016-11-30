@@ -28,6 +28,9 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.NAZIV_RESTORANA)
                 @Html.ValidationMessageFor(model => model.NAZIV_RESTORANA)
+                <div class="text-danger">
+                    @ViewBag.Message
+                </div>
             </div>
         </div>
 

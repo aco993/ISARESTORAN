@@ -25,6 +25,9 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.IDMENADZERA)
                 @Html.ValidationMessageFor(model => model.IDMENADZERA)
+                <div class="text-danger">
+                    @ViewBag.Message
+                </div>
             </div>
         </div>
 

@@ -33,7 +33,7 @@ namespace Restoran2016.Models
         [Required(ErrorMessage = "Ime je obavezno")]
         [DisplayName("Ime")]
         public string IME_GOSTA { get; set; }
-        [Required(ErrorMessage = "Prezme je obavezno")]
+        [Required(ErrorMessage = "Prezime je obavezno")]
         [DisplayName("Prezime")]
         public string PREZIME_GOSTA { get; set; }
         [Required(ErrorMessage = "Pol je obavezan")]
@@ -44,7 +44,7 @@ namespace Restoran2016.Models
         [Required(ErrorMessage = "Potvrdna lozinke je obavezna")]
         [DisplayName("Potvrda lozinke")]
         [DataType(DataType.Password)]
-        [Compare("PASS_GOSTA", ErrorMessage = "Lozinke se ne poklapaju.")]
+        [System.Web.Mvc.Compare("PASS_GOSTA", ErrorMessage = "Lozinke se ne poklapaju.")]
         public string CPASS_GOSTA { get; set; }
         public byte[] SLIKA { get; set; }
     

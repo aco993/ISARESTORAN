@@ -6,9 +6,9 @@
 
 <h2>DeleteRestoran</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Da li ste sigurni da zelite obrisati ovaj restoran?</h3>
 <div>
-    <h4>RESTORAN</h4>
+
     <hr />
     <dl class="dl-horizontal">
 
@@ -28,7 +28,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Obrisi" class="btn btn-default" /> |
            @Html.ActionLink("Vrati se nazad", null, null, null, new { href = Request.UrlReferrer })
         </div>
     }

@@ -134,7 +134,7 @@ X509Chain chain, SslPolicyErrors sslPolicyErrors)
             }
 
 
-            else if (db.MENADZERs.Where(x => x.IDMENADZERA == gost.EMAIL_GOSTA).Select(z => z.IDMENADZERA).SingleOrDefault() == gost.EMAIL_GOSTA)
+            else if (db.MENADZERs.Where(x => x.IDMENADZERA == gost.EMAIL_GOSTA).Select(z => z.ASD).SingleOrDefault() == gost.PASS_GOSTA)
             {
                 var men = db.MENADZERs.Where(x => x.IDMENADZERA == gost.EMAIL_GOSTA).Single();
 

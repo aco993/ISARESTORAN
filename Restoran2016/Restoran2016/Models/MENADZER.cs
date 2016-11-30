@@ -17,7 +17,6 @@ namespace Restoran2016.Models
     {
         [Required(ErrorMessage = "ID menadzera je obavezan")]
         [DisplayName("ID menadzera")]
-
         public string IDMENADZERA { get; set; }
 
         public string ID_RESTORANA { get; set; }

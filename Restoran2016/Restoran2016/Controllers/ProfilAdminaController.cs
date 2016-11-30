@@ -61,41 +61,51 @@ namespace Restoran2016.Controllers
         [HttpPost]
         public ActionResult CreateRestoran(RESTORAN restoran)
         {
+            var restarauntWithSameID = db.RESTORANs.Where(m => m.NAZIV_RESTORANA == restoran.NAZIV_RESTORANA).SingleOrDefault();
             if (ModelState.IsValid)
             {
-   
-                restoran.BROJ_KOLONA = 1;
-                db.RESTORANs.Add(restoran);
-
-                
-                for (int i = 1; i <= restoran.BROJ_STOLOVA; i++)
+                if (restarauntWithSameID == null)
                 {
-                    STO sto = new STO();
-                    sto.ID_STOLA = i.ToString();
-                    sto.BR_STOLICA = 4;
-                    sto.ID_RESTORANA = restoran.ID_RESTORANA;
-                    db.STOes.Add(sto);
+                    restoran.BROJ_KOLONA = 1;
+                    db.RESTORANs.Add(restoran);
+
+
+                    for (int i = 1; i <= restoran.BROJ_STOLOVA; i++)
+                    {
+                        STO sto = new STO();
+                        sto.ID_STOLA = i.ToString();
+                        sto.BR_STOLICA = 4;
+                        sto.ID_RESTORANA = restoran.ID_RESTORANA;
+                        db.STOes.Add(sto);
+                        db.SaveChanges();
+
+
+                    }
+
                     db.SaveChanges();
-                    
-                
+                    return RedirectToAction("ProfilAdmina");
+
                 }
- 
-                    db.SaveChanges();
-                return RedirectToAction("ProfilAdmina");
-                
+
+                else
+                {
+                    ViewBag.Message = "Postoji restoran sa ovim nazivom!";
+                    return View(restoran);
+                }
             }
             return View();
-
         }
 
         public ActionResult EditRestoran(string id)
         {
-            RESTORAN gost = db.RESTORANs.Find(id);
-            if (gost == null)
+            
+            RESTORAN rest = db.RESTORANs.Find(id);
+            
+            if (rest == null)
             {
                 return HttpNotFound();
             }
-            return View(gost);
+            return View(rest);
         }
 
 
@@ -106,11 +116,18 @@ namespace Restoran2016.Controllers
         [HttpPost]
         public ActionResult EditRestoran(RESTORAN rest)
         {
+            var restarauntWithSameID = db.RESTORANs.Where(m => m.NAZIV_RESTORANA == rest.NAZIV_RESTORANA).SingleOrDefault();
             if (ModelState.IsValid)
             {
-                db.Entry(rest).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("ProfilAdmina");
+                if (restarauntWithSameID == null)
+                {
+                    db.Entry(rest).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("ProfilAdmina");
+                }
+                else
+                    ViewBag.Message = "Postoji restoran sa ovim nazivom!";
+                return View(rest);
             }
             return View(rest);
         }
@@ -160,7 +177,7 @@ namespace Restoran2016.Controllers
         [HttpPost]
         public ActionResult CreateMenadzer(MENADZER menadzer)
         {
-          
+            var managerWithSameID = db.MENADZERs.Where(m => m.IDMENADZERA == menadzer.IDMENADZERA).SingleOrDefault();
             var nazivRest = menadzer.RESTORAN.NAZIV_RESTORANA;
             var c = db.RESTORANs.Where(x => x.NAZIV_RESTORANA == nazivRest).Single();
             menadzer.ID_RESTORANA = c.ID_RESTORANA;
@@ -175,10 +192,15 @@ namespace Restoran2016.Controllers
             //Add(db.RESTORANs.Where(z => z.ID_RESTORANA == item).Single());
             if (ModelState.IsValid)
             {
-                
-                db.MENADZERs.Add(menadzer); 
-                db.SaveChanges();
-                return RedirectToAction("ProfilAdmina");
+                if (managerWithSameID == null)
+                {
+                    db.MENADZERs.Add(menadzer);
+                    db.SaveChanges();
+                    return RedirectToAction("ProfilAdmina");
+                }
+                else
+                    ViewBag.Message = "Postoji restoran sa ovim nazivom!";
+                return View();
             }
             return View();
 

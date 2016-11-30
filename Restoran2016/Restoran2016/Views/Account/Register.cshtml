@@ -20,7 +20,10 @@
             @Html.LabelFor(model => model.EMAIL_GOSTA, new { @class = "control-label col-md-2" }) 
             <div class="col-md-10">
                 @Html.EditorFor(model => model.EMAIL_GOSTA)
-                @Html.ValidationMessageFor(model => model.EMAIL_GOSTA) @ViewBag.Message
+                @Html.ValidationMessageFor(model => model.EMAIL_GOSTA) 
+                <div class="text-danger">
+                    @ViewBag.Message    
+                </div>
             </div>
         </div>
 
