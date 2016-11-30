@@ -109,8 +109,6 @@ X509Chain chain, SslPolicyErrors sslPolicyErrors)
         public ActionResult Login(GOST gost)
         {
 
-
- 
             if (db.GOSTs.Where(x => x.EMAIL_GOSTA == gost.EMAIL_GOSTA).Select(z => z.PASS_GOSTA).SingleOrDefault() == gost.PASS_GOSTA)
             {
                 GOST gost2 = db.GOSTs.Find(gost.EMAIL_GOSTA);
@@ -149,7 +147,6 @@ X509Chain chain, SslPolicyErrors sslPolicyErrors)
                 return View(gost);
             }
 
-           // return RedirectToAction("Login");
         }
 
 	}
