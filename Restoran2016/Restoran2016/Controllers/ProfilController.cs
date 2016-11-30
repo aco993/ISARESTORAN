@@ -433,7 +433,7 @@ namespace Restoran2016.Controllers
             DateTime odlazak = new DateTime(rez.DATUM.Year, rez.DATUM.Month, rez.DATUM.Day, rez.VREME_ODLASKA.Hour, rez.VREME_ODLASKA.Minute, rez.VREME_ODLASKA.Second);
             rez.VREME_DOLASKA = dolazak;
             rez.VREME_ODLASKA = odlazak;
-           // var slobodniStolovi = from x in db.REZERVACIJAs where !(x.DATUM == rez.DATUM && ((rez.VREME_DOLASKA <= x.VREME_DOLASKA && rez.VREME_ODLASKA >= x.VREME_DOLASKA) || (rez.VREME_DOLASKA >= x.VREME_DOLASKA && rez.VREME_ODLASKA <= x.VREME_ODLASKA) || (rez.VREME_DOLASKA <= x.VREME_ODLASKA && rez.VREME_ODLASKA >= x.VREME_ODLASKA))) select x.ID_STOLA;
+           
             var sviRezervisani = from x in db.REZERVACIJAs where (x.DATUM == rez.DATUM && x.ID_RESTORANA==rez.ID_RESTORANA && ((rez.VREME_DOLASKA <= x.VREME_DOLASKA && rez.VREME_ODLASKA >= x.VREME_DOLASKA) || (rez.VREME_DOLASKA >= x.VREME_DOLASKA && rez.VREME_ODLASKA <= x.VREME_ODLASKA) || (rez.VREME_DOLASKA <= x.VREME_ODLASKA && rez.VREME_ODLASKA >= x.VREME_ODLASKA))) select x.ID_STOLA;
             var sviStolovi = from x in db.STOes where x.ID_RESTORANA == rez.ID_RESTORANA select x.ID_STOLA;
             var sviSlobodni = sviStolovi.Except(sviRezervisani);
