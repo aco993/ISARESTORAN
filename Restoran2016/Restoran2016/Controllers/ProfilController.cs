@@ -287,10 +287,23 @@ namespace Restoran2016.Controllers
             GOST gost = db.GOSTs.Where(x => x.IME_GOSTA == ime).Where(y => y.PREZIME_GOSTA == prezime).Single();
 
             string posiljalac = Session["idGosta"].ToString();
+
+            var prez = db.PRIJATELJI_REZERVACIJA.Where(x => x.EMAIL_GOSTA1 == posiljalac).Where(x => x.EMAIL_GOSTA == gost.EMAIL_GOSTA).ToList();
+            var prez2 = db.PRIJATELJI_REZERVACIJA.Where(y => y.EMAIL_GOSTA1 == gost.EMAIL_GOSTA).Where(x => x.EMAIL_GOSTA == posiljalac).ToList();
+            foreach (var item in prez)
+            {
+                PRIJATELJI_REZERVACIJA pri = db.PRIJATELJI_REZERVACIJA.Where(x => x.ID == item.ID).Where(x=>x.EMAIL_GOSTA==item.EMAIL_GOSTA).Single();
+                db.PRIJATELJI_REZERVACIJA.Remove(pri);
+            }
+            foreach (var item in prez2)
+            {
+                PRIJATELJI_REZERVACIJA pri = db.PRIJATELJI_REZERVACIJA.Where(x => x.ID == item.ID).Where(x => x.EMAIL_GOSTA == item.EMAIL_GOSTA).Single();
+                db.PRIJATELJI_REZERVACIJA.Remove(pri);
+            }
             PRIJATELJI pr = db.PRIJATELJIs.Find(posiljalac, gost.EMAIL_GOSTA);
-
+            PRIJATELJI pr2 = db.PRIJATELJIs.Find(gost.EMAIL_GOSTA,posiljalac);
             db.PRIJATELJIs.Remove(pr);
-
+            db.PRIJATELJIs.Remove(pr2);
             db.SaveChanges();
             return RedirectToAction("Profil");
 

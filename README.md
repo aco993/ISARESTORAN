@@ -1,1 +1,1 @@
-Aplikacija hostovana na www.restorani.somee.com
+Aplikacija hostovana na http://restoran.somee.com/
