@@ -1,58 +1,15 @@
-﻿@model Restoran2016.ModelView.Profil
-
-@{
-    ViewBag.Title = "RezervisiRestoran3";
+﻿@{
+    ViewBag.Title = "NeuspesnaTransakcija";
 }
 
-<h2>RezervisiRestoran3</h2>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2> Neuspela rezervacija</h2>
+
+<p class="text-info">
+    Doslo je do greske na serveru. Molimo vas pokusajte kasnije.
+</p>
 
 <div>
-    <h4>Profil</h4>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.prezime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.prezime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.pass)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.pass)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cpass)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cpass)
-        </dd>
-
-    </dl>
+    @Html.ActionLink("Vrati se na pocetnu stanicu", "Profil")
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Vrati se nazad", null, null, null, new { href = Request.UrlReferrer })
-</p>

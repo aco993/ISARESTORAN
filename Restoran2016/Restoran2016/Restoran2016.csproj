@@ -462,6 +462,7 @@
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\CekajKonfirmaciju.cshtml" />
     <Content Include="Views\Profil\ListaPrijateljaRez.cshtml" />
+    <Content Include="Views\Profil\NeuspesnaTransakcija.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -18,13 +18,8 @@
         @Html.HiddenFor(model => model.BROJ_KOLONA)
         @Html.HiddenFor(model => model.LONGITUDA)
         @Html.HiddenFor(model => model.LATITUDA)
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID_RESTORANA, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ID_RESTORANA)
-                @Html.ValidationMessageFor(model => model.ID_RESTORANA)
-            </div>
-        </div>
+        @Html.HiddenFor(model => model.ID_RESTORANA)
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.NAZIV_RESTORANA, new { @class = "control-label col-md-2" })
